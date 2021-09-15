@@ -19,9 +19,9 @@ module.exports = {
   options: [
    {
     type: 3,
-	name: "código",
-	description: "Código para carregar",
-	required: true
+	  name: "código",
+	  description: "Código para carregar",
+	  required: true
    }
   ]
  },
@@ -40,21 +40,21 @@ module.exports = {
    if (typeof data !== 'string') data = require('util').inspect(data);
    let result = await clean(data)
     const response = {
-     type: 4,
+    type: 4,
 	  data: {
 	   embeds: [
 	    {
-         title: "Código processado.",
-		 description: `**Saída**\n\`\`\`js\n${result}\`\`\``,
-		 fields: [
-		  {
-		   name: "Entrada",
+       title: "Código processado.",
+		   description: `**Saída**\n\`\`\`js\n${result}\`\`\``,
+		   fields: [
+		    {
+		     name: "Entrada",
 	  	   value: `\`\`\`js\n${code}\`\`\``
-		  }
-		 ]
-		}
-	   ]
-	   }
+		    }
+		  ]
+		 }
+	  ]
+	 }
 	}
    if(result.includes(process.env.BOT_TOKEN)) response.data.flags = 64;
 	return response
@@ -63,12 +63,12 @@ module.exports = {
 	  type: 4,
 	  data: {
 	  embeds: [
-	   {
-		title: "Aconteceu um erro.",
-		description: `\`\`\`js\n${error}\`\`\``
-	   }
-	  ]
-	 }
+	    {
+		   title: "Aconteceu um erro.",
+		   description: `\`\`\`js\n${error}\`\`\``
+	    }
+	   ]
+	  }
    }
    return response
   }
