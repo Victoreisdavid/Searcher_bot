@@ -5,10 +5,10 @@
 let guildID = process.argv[2]
 let commandName;
 if(guildID) {
-	commandName = process.argv[3]
+ commandName = process.argv[3]
 } else {
-	commandName = process.argv[2]
-	guildID = undefined
+ commandName = process.argv[2]
+ guildID = undefined
 }
 
 console.log(guildID, commandName)

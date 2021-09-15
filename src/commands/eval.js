@@ -18,21 +18,21 @@ module.exports = {
   description: "Rodar códigos.",
   options: [
    {
-		type: 3,
-		name: "código",
-		description: "Código para carregar",
-		required: true
-	 }
-	]
+    type: 3,
+	name: "código",
+	description: "Código para carregar",
+	required: true
+	}
+   ]
  },
  execute: async function(data) {
   const author = data.member ? data.member.user : data.user
   if(!Config.bot.dev_ids.includes(author.id)) return {
 	 type: 4,
-		data: {
-		 content: ":rage: Isso não foi feito pra você.",
-		 flags: 64
-   }
+	  data: {
+	   content: ":rage: Isso não foi feito pra você.",
+	   flags: 64
+      }
   }
   const code = data.data.options[0].value
   try {
@@ -44,32 +44,32 @@ module.exports = {
 		 data: {
 			 embeds: [
 			  {
-				 title: "Código processado.",
-				 description: `**Saída**\n\`\`\`js\n${result}\`\`\``,
-				 fields: [
-				{
-				 name: "Entrada",
-	  		 value: `\`\`\`js\n${code}\`\`\``
-				}
-			 ]
-			}
+			   title: "Código processado.",
+			   description: `**Saída**\n\`\`\`js\n${result}\`\`\``,
+			   fields: [
+			  {
+			   name: "Entrada",
+	  		   value: `\`\`\`js\n${code}\`\`\``
+			  }
+			]
+		   }
 		 ]
-		}
-	 }
+	   }
+	}
    if(result.includes(process.env.BOT_TOKEN)) response.data.flags = 64;
-	  return response
+	return response
    } catch(error) {
     const response = {
-		 type: 4,
-		 data: {
-		 embeds: [
-		 {
-		  title: "Aconteceu um erro.",
-			description: `\`\`\`js\n${error}\`\`\``
-		 }
+	  type: 4,
+	  data: {
+	  embeds: [
+	   {
+		title: "Aconteceu um erro.",
+		description: `\`\`\`js\n${error}\`\`\``
+	   }
 	  ]
 	 }
-  }
+   }
    return response
   }
  }
