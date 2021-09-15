@@ -11,7 +11,7 @@ module.exports = {
   register: {
    global: true,
    local: false
-	}
+  }
  },
  command: {
   name: "eval",
@@ -22,8 +22,8 @@ module.exports = {
 	name: "código",
 	description: "Código para carregar",
 	required: true
-	}
-   ]
+   }
+  ]
  },
  execute: async function(data) {
   const author = data.member ? data.member.user : data.user
@@ -32,28 +32,28 @@ module.exports = {
 	  data: {
 	   content: ":rage: Isso não foi feito pra você.",
 	   flags: 64
-      }
+    }
   }
   const code = data.data.options[0].value
   try {
    const data = await util.inspect(await eval(code))
    if (typeof data !== 'string') data = require('util').inspect(data);
    let result = await clean(data)
-	  const response = {
-		 type: 4,
-		 data: {
-			 embeds: [
-			  {
-			   title: "Código processado.",
-			   description: `**Saída**\n\`\`\`js\n${result}\`\`\``,
-			   fields: [
-			  {
-			   name: "Entrada",
-	  		   value: `\`\`\`js\n${code}\`\`\``
-			  }
-			]
-		   }
+    const response = {
+     type: 4,
+	  data: {
+	   embeds: [
+	    {
+         title: "Código processado.",
+		 description: `**Saída**\n\`\`\`js\n${result}\`\`\``,
+		 fields: [
+		  {
+		   name: "Entrada",
+	  	   value: `\`\`\`js\n${code}\`\`\``
+		  }
 		 ]
+		}
+	   ]
 	   }
 	}
    if(result.includes(process.env.BOT_TOKEN)) response.data.flags = 64;
