@@ -18,7 +18,7 @@ async function search_subcommand(data) {
 	const mappedlibs = libs.map((lib, i) => i + " - " + lib.name)
 	const options = []
 	libs.forEach(lib => {
-		options.push({
+		options.push({	
 			label: lib.name,
 			value: lib.name,
 		})
