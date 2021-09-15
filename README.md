@@ -153,4 +153,4 @@ Lembrando que se você estiver usando outra plataforma, pode consultar o google,
 ##### Configurando a URL de interação
 Na página de configurações gerais do seu app no discord, procure por `INTERACTIONS ENDPOINT URL`, como na imagem abaixo (onde tá censurado a URL):
 ![imagem de exemplo](https://cdn.discordapp.com/attachments/886736113237127188/887507932340711444/unknown.png)
-lá você coloca a URL do seu webserver, com o endpoint `/api/interactions`, logo depois clique em `save`. Logo após isso, o discord irá enviar algumas solicitações de testes para o seu servidor, se tudo ocorrer certo, sua versão auto-hospedada está pronta!
+lá você coloca a URL do seu webserver, com o endpoint `/api/interaction`, logo depois clique em `save`. Logo após isso, o discord irá enviar algumas solicitações de testes para o seu servidor, se tudo ocorrer certo, sua versão auto-hospedada está pronta!
