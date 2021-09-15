@@ -1,0 +1,32 @@
+{
+  "name": "Searcherbot",
+  "version": "1.0.0",
+  "description": "Searcher, um bot para o discord que faz pesquisas em diversas plataformas!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Victoreisdavid/Searcher_bot.git"
+  },
+  "keywords": [],
+  "author": "Victor Reis David",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/Victoreisdavid/Searcher_bot/issues"
+  },
+  "homepage": "https://github.com/Victoreisdavid/Searcher_bot#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "eris": "^0.15.1",
+    "eris-additions": "^1.4.1",
+    "express": "^4.17.1",
+    "libnpmsearch": "^3.1.2",
+    "pretty-ms": "^7.0.1",
+    "tweetnacl": "^1.0.3",
+    "util": "^0.12.4",
+    "yaml": "^1.10.2"
+  }
+}
