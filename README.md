@@ -102,7 +102,7 @@ Exemplo de um objeto de comando:
     execute: async function(data) {
         //Nota: data é o único parâmetro passado, nele contém tudo o que o discord envia ao webserver quando um comando é usado.
         return {
-            type: 4 //type de resposta 4 significa "CHANNEL_MESSAGE_WITH_SOURCE", resumindo, envia uma mensagem.
+            type: 4, //type de resposta 4 significa "CHANNEL_MESSAGE_WITH_SOURCE", resumindo, envia uma mensagem.
             data: { //conteúdo da resposta
                 content: "Olá mundo!"
             }
