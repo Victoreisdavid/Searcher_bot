@@ -52,43 +52,43 @@ app.post("/api/interaction", async function(req, res) {
 		return res.sendStatus(401)
 	}
 	const isVerified = nacl.sign.detached.verify(
-		Buffer.from(timestamp + body),
-		Buffer.from(signature, 'hex'),
-		Buffer.from(publickey, 'hex')
+   Buffer.from(timestamp + body),
+	 Buffer.from(signature, 'hex'),
+	 Buffer.from(publickey, 'hex')
 	);
 	if(!isVerified) {
-		await invalidreq(req.get("origin"))
-		return res.status(401).send("invalid request signature")
+	 await invalidreq(req.get("origin"))
+ 	 return res.status(401).send("invalid request signature")
 	}
 	if(req.body.type == 1) {
-		await discordreq()
-		return res.status(200).json({
-			type: 1
-		})
+	 await discordreq()
+	 return res.status(200).json({
+		 type: 1
+	 })
 	} else if(req.body.type == 3) {
-		const command = commands.get(req.body.message.interaction.name)
-		command.handleInteraction(req.body).then(response => {
-			return res.status(200).json(response)
-		}).catch(e => {
-			return res.status(200).json({
-				type: 4,
-				data: {
-					content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${e}\`\`\``,
-					flags: 64
+     const command = commands.get(req.body.message.interaction.name)
+     command.handleInteraction(req.body).then(response => {
+		 return res.status(200).json(response)
+		 }).catch(e => {
+		  return res.status(200).json({
+			 type: 4,
+			 data: {
+			  content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${e}\`\`\``,
+				flags: 64
 				}
 			})
 		})
 	} else {
-		const command = commands.get(req.body.data.name)
-		command.execute(req.body).then(response => {
-			return res.status(200).json(response)
-		}).catch(e => {
-			return res.status(200).json({
-				type: 4,
-				data: {
-					content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
-					flags: 64
-				}
+	   const command = commands.get(req.body.data.name)
+	   command.execute(req.body).then(response => {
+		 return res.status(200).json(response)
+		 }).catch(e => {
+		  return res.status(200).json({
+			type: 4,
+			 data: {
+			  content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
+				flags: 64
+			 }
 			})
 		})
 	}

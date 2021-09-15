@@ -5,11 +5,11 @@ module.exports = {
 		type: 1
 	},
 	execute: async function(data) {
-		return {
-			type: 4,
-			data: {
-				content: ":ping_pong: Pong!"
-			}
+   return {
+	  type: 4,
+		 data: {
+		  content: ":ping_pong: Pong!"
 		}
+	 }
 	}
 }
