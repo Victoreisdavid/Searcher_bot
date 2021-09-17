@@ -4,12 +4,12 @@ const sections = new Map()
 async function search_subcommand(data) {
  const libs = await apis.npm.search(data.data.options[0].options[0].value)
  if(libs.length == 0) {
- return {
-  type: 4,
+  return {
+   type: 4,
    data: {
-    content: `<:warn:886469809712291850> Não achei nenhum resultado.`,
-	  flags: 64
-	 }
+    content: "<:warn:886469809712291850> Não achei nenhum resultado.",
+    flags: 64
+   }
   }
  }
  if(libs.length > 15) {
@@ -18,41 +18,43 @@ async function search_subcommand(data) {
  const mappedlibs = libs.map((lib, i) => i + " - " + lib.package.name)
  const options = []
  libs.forEach(lib => {
-  options.push({	
-	 label: lib.package.name,
-	 value: lib.package.name,
-  })
+  options.push(
+   {
+    label: lib.package.name,
+    value: lib.package.name
+   }
+  )
  })
 
  return {
   type: 4,
-   data: {
-    embeds: [
+  data: {
+   embeds: [
     {
 	   title: "Searcher - npmjs.com",
 	   description: `Pesquisei por \`${data.data.options[0].options[0].value}\` no npmjs, veja os resultados.`,
 	   fields: [
-	   {
-		  name: ":mag_right: Resultados da pesquisa",
-	    value: mappedlibs.join("\n")
-	   }
-	  ]
-	 }
-	],
-  components: [
-   {
-	  type: 1,
-	  components: [
-	   {
-	    type: 3,
-	    custom_id: "npm_select_box",
-	    placeholder: "Selecione o resultado",
-	    options: options
-	   }
-	  ]
-   }
-  ]
- }
+	    {
+		   name: ":mag_right: Resultados da pesquisa",
+	     value: mappedlibs.join("\n")
+	    }
+	   ]
+	  }
+	 ],
+   components: [
+    {
+	   type: 1,
+	   components: [
+	    {
+	     type: 3,
+	     custom_id: "npm_select_box",
+	     placeholder: "Selecione o resultado",
+	     options: options
+	    }
+	   ]
+    }
+   ]
+  }
  }
 }
 
@@ -67,10 +69,10 @@ async function lookup_subcommand(data) {
  lib = lib[index]
  if(!lib) {
   return {
-	type: 4,
-	data: {
-   content: `<:warn:886469809712291850> Não achei nenhum resultado.`,
-	 flags: 64
+   type: 4,
+   data: {
+    content: "<:warn:886469809712291850> Não achei nenhum resultado.",
+    flags: 64
    }
   }
  }
@@ -95,7 +97,7 @@ async function lookup_subcommand(data) {
   fields.push(
    {
     name: "<:ebaa:886554070075203625> Ajudar é legal",
-	  value: `Caso você ache um problema em **${lib.name}**, considere abrir uma issue em: ${links.bugs}`
+    value: `Caso você ache um problema em **${lib.name}**, considere abrir uma issue em: ${links.bugs}`
    }
   )
  }
@@ -108,7 +110,7 @@ async function lookup_subcommand(data) {
  )
  return {
   type: 4,
-   data: {
+  data: {
 	 embeds: [
 	  {
 	   title: `${lib.name} - v${lib.version}`,
@@ -214,9 +216,10 @@ module.exports = {
 	  value: `Abra o seu terminal, e rode o seguinte comando:\n\`\`\`npm install ${lib.name}\`\`\`\nCaso você use o Yarn:\n\`\`\`yarn add ${lib.name}\`\`\``
 	 }
   )
- return {
-	type: 7,
-	data: {
+  
+  return {
+	 type: 7,
+	 data: {
 	  embeds: [
 	   {
 	    title: `${lib.name} - v${lib.version}`,
