@@ -25,22 +25,21 @@ async function search_subcommand(data) {
    }
   )
  })
-
  return {
   type: 4,
   data: {
    embeds: [
     {
-	   title: "Searcher - npmjs.com",
-	   description: `Pesquisei por \`${data.data.options[0].options[0].value}\` no npmjs, veja os resultados.`,
-	   fields: [
+     title: "Searcher - npmjs.com",
+     description: `Pesquisei por \`${data.data.options[0].options[0].value}\` no npmjs, veja os resultados.`,
+     fields: [
 	    {
-		   name: ":mag_right: Resultados da pesquisa",
-	     value: mappedlibs.join("\n")
-	    }
-	   ]
-	  }
-	 ],
+       name: ":mag_right: Resultados da pesquisa",
+       value: mappedlibs.join("\n")
+      }
+     ]
+    }
+   ],
    components: [
     {
 	   type: 1,
@@ -111,20 +110,17 @@ async function lookup_subcommand(data) {
  return {
   type: 4,
   data: {
-	 embeds: [
-	  {
-	   title: `${lib.name} - v${lib.version}`,
-	   description: lib.description,
-	   fields: fields
-	  }
+   embeds: [
+    {
+     title: `${lib.name} - v${lib.version}`,
+     description: lib.description,
+     fields: fields
+    }
    ]
   }
  }
 }
 
-/*
-	informações que o comando irá exportar
-*/
 module.exports = {
  command: {
   name: "npm",
@@ -216,7 +212,7 @@ module.exports = {
 	  value: `Abra o seu terminal, e rode o seguinte comando:\n\`\`\`npm install ${lib.name}\`\`\`\nCaso você use o Yarn:\n\`\`\`yarn add ${lib.name}\`\`\``
 	 }
   )
-  
+
   return {
 	 type: 7,
 	 data: {

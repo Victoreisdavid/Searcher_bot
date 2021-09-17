@@ -17,6 +17,9 @@ Se interessou pelo código? Achou algum erro, quer fazer uma versão auto-hosped
 ## 🚀 Selfhosting
 Caso você queira fazer uma versão auto-hospedada, precisa saber algumas coisas antes.
 
+### Aviso sério
+Esse projeto é comunitário e aberto, **não é desenvolvido por profissionais**, não espere algo com altíssima qualidade.
+
 ### Respeite a licença e os desenvolvedores do projeto
 Ao clonar esse código, você **deve seguir a licença** `GPLv3`. Destacando duas coisas que você deve seguir (a licença exige mais coisa, para mais detalhes, leia o arquivo `LICENSE`):
 - Você deve deixar as alterações no código públicas.
