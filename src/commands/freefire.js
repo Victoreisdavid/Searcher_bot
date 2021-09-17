@@ -33,11 +33,11 @@ module.exports = {
  handleInteraction: async function(data) {
   const author = data.member ? data.member.user : data.user
   if(author.id != data.message.interaction.user.id) {
-	 return {
+   return {
     type: 4,
-		data: {
-		 flags: 64,
-		 content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado."
+     data: {
+		  flags: 64,
+		  content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado."
 	  }
 	 }
   }
