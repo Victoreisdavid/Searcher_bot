@@ -3,7 +3,7 @@
 */
 let guildID = process.argv[2]
 let commandName;
-if(guildID) {
+if(!isNaN(guildID)) {
 	commandName = process.argv[3]
 } else {
 	commandName = process.argv[2]

@@ -1,6 +1,7 @@
 /*
 	Arquivo principal.
 */
+require('./ApisLoader');
 const app = require("express")()
 const bodyparser = require("body-parser")
 const nacl = require("tweetnacl")

@@ -1,11 +1,8 @@
-const search = require("libnpmsearch")
 const { get } = require("axios")
 const sections = new Map()
 
 async function search_subcommand(data) {
- const libs = await search(data.data.options[0].options[0].value, {
-    limit: 15
- })
+ const libs = await apis.npm.search(data.data.options[0].options[0].value)
  if(libs.length == 0) {
  return {
   type: 4,
@@ -15,12 +12,15 @@ async function search_subcommand(data) {
 	 }
   }
  }
- const mappedlibs = libs.map((lib, i) => i + " - " + lib.name)
+ if(libs.length > 15) {
+  libs.splice(0, 15)
+ }
+ const mappedlibs = libs.map((lib, i) => i + " - " + lib.package.name)
  const options = []
  libs.forEach(lib => {
   options.push({	
-	 label: lib.name,
-	 value: lib.name,
+	 label: lib.package.name,
+	 value: lib.package.name,
   })
  })
 
@@ -57,7 +57,7 @@ async function search_subcommand(data) {
 }
 
 async function lookup_subcommand(data) {
- let lib = await search(data.data.options[0].options[0].value)
+ let lib = await apis.npm.search(data.data.options[0].options[0].value)
  let index = data.data.options[0].options[1]
  if(index) {
   index = index.value
@@ -74,6 +74,7 @@ async function lookup_subcommand(data) {
    }
   }
  }
+ lib = lib.package
  const links = lib.links
  const fields = []
  fields.push(
@@ -126,18 +127,18 @@ module.exports = {
  command: {
   name: "npm",
   description: "Interagir com a lista de pacotes oficial do node.js via discord",
-   options: [
-    {
-	   type: 1,
-	   name: "search",
-	   description: "Pesquise algo na lista de pacotes oficial do node.js.",
-	   options: [
-	    {
-	     type: 3,
-	     name: "pesquisa",
-	     description: "Pesquisa a ser feita",
-	     required: true
-	    }
+  options: [
+   {
+	  type: 1,
+	  name: "search",
+	  description: "Pesquise algo na lista de pacotes oficial do node.js.",
+	  options: [
+	   {
+	    type: 3,
+	    name: "pesquisa",
+	    description: "Pesquisa a ser feita",
+	    required: true
+	   }
 	  ]
    },
    {
@@ -171,7 +172,7 @@ module.exports = {
  },
  handleInteraction: async function(data) {
   const author = data.member ? data.member.user : data.user
-	if(author.id != data.message.interaction.user.id) {
+  if(author.id != data.message.interaction.user.id) {
 	 return {
     type: 4,
 		data: {
@@ -180,8 +181,8 @@ module.exports = {
 	  }
 	 }
   }
-	let lib = await search(data.data.values[0])
-	lib = lib[0]
+	let lib = await apis.npm.search(data.data.values[0])
+	lib = lib[0].package
 	const links = lib.links
 	const fields = []
 	fields.push(

@@ -57,7 +57,7 @@ module.exports = {
 	 }
 	}
    if(result.includes(process.env.BOT_TOKEN)) response.data.flags = 64;
-	return response
+	 return response
    } catch(error) {
     const response = {
 	  type: 4,
