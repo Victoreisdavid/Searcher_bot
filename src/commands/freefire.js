@@ -32,14 +32,14 @@ module.exports = {
  },
  handleInteraction: async function(data) {
   const author = data.member ? data.member.user : data.user
-  if(author.id != data.message.interaction.user.id) {
+  if(author.id !== data.message.interaction.user.id) {
    return {
     type: 4,
-     data: {
-		  flags: 64,
-		  content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado."
-	  }
-	 }
+    data: {
+     content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
+     flags: 64
+    }
+   }
   }
   const weapons = await apis.freefire.getGuns()
   const weapon = weapons.find(w => w.name == data.data.values[0])
