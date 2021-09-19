@@ -179,16 +179,17 @@ module.exports = {
     }
    }
   }
-	let lib = await apis.npm.search(data.data.values[0])
-	lib = lib[0].package
-	const links = lib.links
-	const fields = []
-	fields.push(
-	 {
-	  name: `:mag_right: Informações gerais`,
-	  value: `**Publicado por**: ${lib.publisher.username || "Desconhecido"} | \`${lib.publisher.email || "Sem email."}\`\n**Página no NPM**: ${links.npm}\n**Homepage**: ${links.homepage || links.npm}\n**Código fonte**: ${links.repository ? links.repository : `Não disponível.`}`
-	 }
-	)
+  let lib = await apis.npm.search(data.data.values[0])
+  lib = lib[0].package
+  const links = lib.links
+  const fields = []
+  
+  fields.push(
+   {
+    name: ":mag_right: Informações gerais",
+    value: `**Publicado por**: ${lib.publisher.username || "Desconhecido"} | \`${lib.publisher.email || "Sem email."}\`\n**Página no NPM**: ${links.npm}\n**Homepage**: ${links.homepage || links.npm}\n**Código fonte**: ${links.repository ? links.repository : `Não disponível.`}`
+   }
+  )
 
   fields.push(
    {
@@ -227,69 +228,3 @@ module.exports = {
   }
  }
 }
-
- /*return {
-  type: Constants.callback_type.MESSAGE,
-  data: {
-   embeds: [
-    {
-     title: "Searcher - npmjs.com",
-     description: `Pesquisei por \`${data.data.options[0].options[0].value}\` no npmjs, veja os resultados.`,
-     fields: [
-	    {
-       name: ":mag_right: Resultados da pesquisa",
-       value: mappedlibs.join("\n")
-      }
-     ]
-    }
-   ],
-   components: [
-    {
-	   type: 1,
-	   components: [
-	    {
-	     type: 3,
-	     custom_id: "npm_select_box",
-	     placeholder: "Selecione o resultado",
-	     options: options
-	    }
-	   ]
-    }
-   ]
-  }
- }*/
-
-   /*options: [
-   {
-	  type: 1,
-	  name: "search",
-	  description: "Pesquise algo na lista de pacotes oficial do node.js.",
-	  options: [
-	   {
-	    type: 3,
-	    name: "pesquisa",
-	    description: "Pesquisa a ser feita",
-	    required: true
-	   }
-	  ]
-   },
-   {
-    type: 1,
-	  name: "lookup",
-	  description: "Veja informações sobre um pacote na lista oficial do node.js.",
-	  options: [
-	   {
-	    type: 3,
-	    name: "nome",
-	    description: "Nome do pacote",
-	    required: true
-	   },
-	   {
-	    type: 4,
-	    name: "index",
-	    description: "Posição do pacote na pesquisa",
-	    required: false
-	   }
-    ]
-   }
-  ]*/
