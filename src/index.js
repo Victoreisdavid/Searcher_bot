@@ -80,21 +80,21 @@ app.post("/api/interaction", async function(req, res) {
 		 }
 		})
 	 })
-	} else {
-	  const command = commands.get(req.body.data.name)
-	  command.execute(req.body).then(response => {
-		 return res.status(200).json(response)
-		})
-    .catch(e => {
-    return res.status(200).json({
-		 type: 4,
-		 data: {
-			content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
-			flags: 64
-		 }
-		})
+ } else {
+	const command = commands.get(req.body.data.name)
+	command.execute(req.body).then(response => {
+		return res.status(200).json(response)
+	})
+  .catch(e => {
+   return res.status(200).json({
+		type: 4,
+		data: {
+		 content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
+		 flags: 64
+		}
 	 })
-	}
+	})
+ }
 })
 
 app.listen(process.env.PORT || 3030)
