@@ -31,6 +31,14 @@ bot.on("ready", () => {
  console.log("iniciado!")
 })
 
+bot.on("messageCreate", (message) => {
+ if(message.content) {
+  if(message.content == `<@${bot.user.id}>` || message.content == `<@!${bot.user.id}>`) {
+   return message.channel.createMessage(`Olá ${message.author.mention}, eu sou o Searcher, para obter ajuda, digite \`/help\`\nCaso os comandos não apareçam, verifique se eu fui adicionado com permissão de criar comandos.`)
+  }
+ }
+})
+
 bot.on("error", (err) => console.log("aconteceu um erro.", err))
 
 bot.connect()
