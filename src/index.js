@@ -73,7 +73,7 @@ app.post("/api/interaction", async function(req, res) {
   })
   .catch(error => {
    return res.status(200).json({
-    type: Constants.callback_type.message
+    type: Constants.callback_type.message,
     data: {
      content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${error}\`\`\``,
      flags: Constants.message_flags.EPHEMERAL
