@@ -183,7 +183,6 @@ module.exports = {
   lib = lib[0].package
   const links = lib.links
   const fields = []
-  
   fields.push(
    {
     name: ":mag_right: Informações gerais",

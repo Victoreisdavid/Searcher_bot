@@ -14,25 +14,24 @@ module.exports = async function(guildID, file) {
  const prop = require(`../../commands/${file}`)
  if(guildID) {
   if(prop.limitations) {
-	console.log(`Limitações em ${file} detectadas.`)
-	if(prop.limitations.register) {
-	 console.log(`Limitações de registro detectadas em ${file}`)
-	 if(prop.limitations.register.local) return;
-	}
+   console.log(`Limitações em ${file} detectadas.`)
+   if(prop.limitations.register) {
+    if(props.limitations.register.local) return;
+   }
+  }
  }
  post(`https://discord.com/api/v8/applications/${ID}/guilds/${guildID}/commands`, prop.command, {
   headers: {
-	 Authorization: `Bot ${process.env.BOT_TOKEN}`
+   Authorization: `Bot ${process.env.BOT_TOKEN}`
   }
  })
  } else {
-  if(prop.limitations) {
+  if(props.limitations) {
    console.log(`Limitações em ${file} detectadas.`)
-   if(prop.limitations.register) {
-    console.log(`Limitações de registro detectadas em ${file}`)
-	  if(prop.limitations.register.global) return;
-	 }
-	}
+   if(props.limitations.register) {
+    if(props.limitations.register.global) return;
+   }
+  }
   post(`https://discord.com/api/v9/applications/${ID}/commands`, prop.command, {
 	 headers: {
 	  Authorization: `Bot ${process.env.BOT_TOKEN}`
