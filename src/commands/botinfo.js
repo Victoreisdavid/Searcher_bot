@@ -4,11 +4,10 @@ module.exports = {
  command: {
   name: "botinfo",
   description: "Informações sobre mim (:",
-  type: 1
   },
   execute: async function(data) {
   return {
-   type: 4,
+   type: Constants.callback_type.MESSAGE,
    data: {
     embeds: [
      {

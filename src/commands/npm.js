@@ -5,10 +5,10 @@ async function search_subcommand(data) {
  const libs = await apis.npm.search(data.data.options[0].options[0].value)
  if(libs.length == 0) {
   return {
-   type: 4,
+   type: Constants.callback_type.MESSAGE,
    data: {
     content: "<:warn:886469809712291850> Não achei nenhum resultado.",
-    flags: 64
+    flags: Constants.message_flags.EPHEMERAL
    }
   }
  }
@@ -26,7 +26,7 @@ async function search_subcommand(data) {
   )
  })
  return {
-  type: 4,
+  type: Constants.callback_type.MESSAGE,
   data: {
    embeds: [
     {
@@ -68,10 +68,10 @@ async function lookup_subcommand(data) {
  lib = lib[index]
  if(!lib) {
   return {
-   type: 4,
+   type: Constants.callback_type.MESSAGE,
    data: {
     content: "<:warn:886469809712291850> Não achei nenhum resultado.",
-    flags: 64
+    flags: Constants.message_flags.EPHEMERAL
    }
   }
  }
@@ -172,9 +172,9 @@ module.exports = {
   const author = data.member ? data.member.user : data.user
   if(author.id != data.message.interaction.user.id) {
 	 return {
-    type: 4,
+    type: Constants.callback_type.MESSAGE,
 		data: {
-		 flags: 64,
+		 flags: Constants.message_flags.EPHEMERAL,
 		 content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado."
 	  }
 	 }
@@ -214,7 +214,7 @@ module.exports = {
   )
 
   return {
-	 type: 7,
+	 type: Constants.callback_type.EDIT_MESSAGE,
 	 data: {
 	  embeds: [
 	   {

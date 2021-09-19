@@ -37,7 +37,7 @@ module.exports = {
     type: 4,
     data: {
      content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
-     flags: 64
+     flags: Constants.message_flags.EPHEMERAL
     }
    }
   }
@@ -48,13 +48,13 @@ module.exports = {
     type: 4,
     data: {
      content: "<:shit:887428144469000252> Ué, não achei nada",
-     flags: 64
+     flags: Constants.message_flags.EPHEMERAL
     }
    }
   }
   const attributes = weapon.attributes
   return {
-   type: 7,
+   type: Constants.callback_type.EDIT_MESSAGE,
    data: {
     embeds: [
      {
@@ -99,10 +99,10 @@ async function search_gun(data) {
  }
  if(filteredWeapons.length == 0) {
   return {
-   type: 4,
+   type: Constants.callback_type.MESSAGE,
    data: {
     content: "<:warn:886469809712291850> não achei nenhum resultado!",
-    flags: 64
+    flags: Constants.message_flags.EPHEMERAL
    }
   }
  }
@@ -117,7 +117,7 @@ async function search_gun(data) {
   )
  })
  return {
-  type: 4,
+  type: Constants.callback_type.MESSAGE,
   data: {
    embeds: [
     {

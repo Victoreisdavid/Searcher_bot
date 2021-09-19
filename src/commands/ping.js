@@ -1,12 +1,11 @@
 module.exports = {
  command: {
   name: "ping",
-  description: "Ping?",
-  type: 1
+  description: "Ping?"
  },
  execute: async function(data) {
  return {
-  type: 4,
+  type: Constants.callback_type.MESSAGE,
   data: {
    content: ":ping_pong: Pong!"
    }

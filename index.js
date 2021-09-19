@@ -16,6 +16,7 @@ for(const file of files) {
 console.log("Comandos carregados:", files.length)
 
 global.Config = parse(yamlFile)
+global.Constants = require("./src/utils/constants/flags")
 
 require("dotenv").config()
 require("./src/client")

@@ -28,10 +28,10 @@ module.exports = {
  execute: async function(data) {
   const author = data.member ? data.member.user : data.user
   if(!Config.bot.dev_ids.includes(author.id)) return {
-	 type: 4,
+	 type: Constants.callback_type.MESSAGE,
 	  data: {
 	   content: ":rage: Isso não foi feito pra você.",
-	   flags: 64
+	   flags: Constants.message_flags.EPHEMERAL
     }
   }
   const code = data.data.options[0].value
@@ -40,7 +40,7 @@ module.exports = {
    if (typeof data !== 'string') data = require('util').inspect(data);
    let result = await clean(data)
     const response = {
-    type: 4,
+    type: Constants.callback_type.MESSAGE,
 	  data: {
 	   embeds: [
 	    {
@@ -60,7 +60,7 @@ module.exports = {
 	 return response
    } catch(error) {
     const response = {
-	  type: 4,
+	  type: Constants.callback_type.MESSAGE,
 	  data: {
 	  embeds: [
 	    {
