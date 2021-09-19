@@ -34,7 +34,7 @@ module.exports = {
   const author = data.member ? data.member.user : data.user
   if(author.id !== data.message.interaction.user.id) {
    return {
-    type: 4,
+    type: Constants.callback_type.MESSAGE,
     data: {
      content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
      flags: Constants.message_flags.EPHEMERAL

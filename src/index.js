@@ -68,12 +68,12 @@ app.post("/api/interaction", async function(req, res) {
   })
  } else if(req.body.type == 3) {
   const command = commands.get(req.body.message.interaction.name)
-  command.handleInteraction(req.body).then(responde => {
+  command.handleInteraction(req.body).then(response => {
    return res.status(200).json(response)
   })
   .catch(error => {
    return res.status(200).json({
-    type: Constants.callback_type.message,
+    type: Constants.callback_type.MESSAGE,
     data: {
      content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${error}\`\`\``,
      flags: Constants.message_flags.EPHEMERAL
