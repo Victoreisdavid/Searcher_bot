@@ -33,9 +33,9 @@ module.exports = async function(guildID, file) {
    }
   }
   post(`https://discord.com/api/v9/applications/${ID}/commands`, prop.command, {
-	 headers: {
-	  Authorization: `Bot ${process.env.BOT_TOKEN}`
-	 }
+   headers: {
+    Authorization: `Bot ${process.env.BOT_TOKEN}`
+   }
   })
  }
 }
