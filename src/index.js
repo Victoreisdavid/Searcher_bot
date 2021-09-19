@@ -70,22 +70,24 @@ app.post("/api/interaction", async function(req, res) {
    const command = commands.get(req.body.message.interaction.name)
    command.handleInteraction(req.body).then(response => {
 	  return res.status(200).json(response)
-	 }).catch(e => {
-		return res.status(200).json({
-		 type: 4,
-		 data: {
-			content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${e}\`\`\``,
-			flags: 64
-		  }
-		})
 	 })
+   .catch(e => {
+		 return res.status(200).json({
+		  type: 4,
+		  data: {
+			 content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${e}\`\`\``,
+			 flags: 64
+		   }
+		 })
+	  })
 	} else {
 	  const command = commands.get(req.body.data.name)
 	  command.execute(req.body).then(response => {
 		 return res.status(200).json(response)
-		}).catch(e => {
+		})
+    .catch(e => {
      return res.status(200).json({
-			type: 4,
+		  type: 4,
 			data: {
 			 content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
 			 flags: 64
