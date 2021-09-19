@@ -67,34 +67,34 @@ app.post("/api/interaction", async function(req, res) {
    type: 1
   })
  } else if(req.body.type == 3) {
-   const command = commands.get(req.body.message.interaction.name)
-   command.handleInteraction(req.body).then(response => {
-	  return res.status(200).json(response)
-	 })
-   .catch(e => {
-		return res.status(200).json({
-		 type: 4,
-		 data: {
-			content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${e}\`\`\``,
-			flags: 64
-		 }
-		})
-	 })
- } else {
-	const command = commands.get(req.body.data.name)
-	command.execute(req.body).then(response => {
-		return res.status(200).json(response)
-	})
-  .catch(e => {
+  const command = commands.get(req.body.message.interaction.name)
+  command.handleInteraction(req.body).then(responde => {
+   return res.status(200).json(response)
+  })
+  .catch(error => {
    return res.status(200).json({
-		type: 4,
-		data: {
-		 content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
-		 flags: 64
-		}
-	 })
-	})
- }
+    type: Constants.callback_type.message
+    data: {
+     content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${error}\`\`\``,
+     flags: Constants.message_flags.EPHEMERAL
+    }
+   })
+  })
+ } else {
+  const command = commands.get(req.body.data.name)
+  command.execute(req.body).then(response => {
+   return res.status(200).json(response)
+  })
+  .catch(error => {
+   return res.status(200).json({
+    type: Constants.callback_type.MESSAGE,
+    data: {
+     content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${e}\`\`\``,
+     flags: Constants.message_flags.EPHEMERAL
+    }
+   })
+  })
+ } 
 })
 
 app.listen(process.env.PORT || 3030)
