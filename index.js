@@ -9,9 +9,9 @@ const yamlFile = readFileSync("./config.yaml", "utf8")
 global.commands = new Map()
 
 const files = readdirSync("./src/commands")
-for(const file of files) {
-	const prop = require(`./src/commands/${file}`)
-	commands.set(prop.command.name, prop)
+for (const file of files) {
+  const prop = require(`./src/commands/${file}`)
+  commands.set(prop.command.name, prop)
 }
 console.log("Comandos carregados:", files.length)
 
@@ -21,3 +21,4 @@ global.Constants = require("./src/utils/constants/flags")
 require("dotenv").config()
 require("./src/client")
 require("./src/index");
+require("./src/utils/ramStatus")

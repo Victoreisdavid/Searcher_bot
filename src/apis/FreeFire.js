@@ -1,19 +1,19 @@
 const API = require('./API');
 const axios = require('axios');
 
-const API_URL = 'https://ffstaticdata.switchblade.xyz/pt/weapons.json'
+const API_URL = 'https://ffstaticdata.switchblade.xyz'
 
 module.exports = class NPMApi extends API {
   constructor() {
     super('freefire');
   }
 
-  getGuns(query) {
+  getGuns(query, language = 'pt') {
     return axios({
       params: {
         text: encodeURIComponent(query)
       },
-      url: API_URL
+      url: `${API_URL}/${language}/weapons.json`
     }).then(r => {
       return r.data.weapons;
     }).catch(e => {

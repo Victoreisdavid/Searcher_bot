@@ -1,8 +1,4 @@
-const API = require('./src/apis/Api');
-const api = new API('a', 'b');
+const vs = require('./src/apis/VSCodeExtensions');
+const a = new vs();
 
-api._request('GET', 'https://open.spotify.com/get_access_token', {
-  parsing: 'json'
-})
-.then(r => console.log(r))
-.catch(e => console.error(e));
+a.search('node').then(r => console.log(r));

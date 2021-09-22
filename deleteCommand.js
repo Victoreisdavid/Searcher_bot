@@ -4,11 +4,11 @@
 
 let guildID = process.argv[2]
 let commandName;
-if(!isNaN(guildID)) {
- commandName = process.argv[3]
+if (!isNaN(guildID)) {
+  commandName = process.argv[3]
 } else {
- commandName = process.argv[2]
- guildID = undefined
+  commandName = process.argv[2]
+  guildID = undefined
 }
 
 console.log(guildID, commandName)
