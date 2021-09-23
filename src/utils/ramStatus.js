@@ -1,7 +1,10 @@
 const cronjob = require("node-cron")
-const registeredUses = []
+let registeredUses = []
 
 cronjob.schedule("*/1 * * * *", () => {
+  if(registeredUses.length > 30) {
+    registeredUses = []
+  }
   registeredUses.push(process.memoryUsage().rss / 1024 / 1024)
 })
 
