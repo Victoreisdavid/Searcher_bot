@@ -30,7 +30,10 @@ module.exports = {
                 name: "<:desktop:886471189017534494> Informações do sistema",
                 value: `**Versão do node.JS:** \`${process.version}\`\n**Uso de memória RAM:** \`${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB\``
               }
-            ]
+            ],
+            thumbnail: {
+              url: Config.images_server + "/searcher_thumb.png"
+            }
           }
         ]
       }

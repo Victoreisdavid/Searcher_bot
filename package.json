@@ -23,6 +23,8 @@
     "eris": "^0.15.1",
     "eris-additions": "^1.4.1",
     "express": "^4.17.1",
+    "luxon": "^2.0.2",
+    "mongoose": "^6.0.7",
     "node-cron": "^3.0.0",
     "pretty-ms": "^7.0.1",
     "tweetnacl": "^1.0.3",

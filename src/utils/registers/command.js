@@ -11,6 +11,7 @@ function sleep() {
 }
 
 module.exports = async function (guildID, file) {
+  console.log(guildID, file)
   const prop = require(`../../commands/${file}`)
   if (guildID) {
     if (prop.limitations) {

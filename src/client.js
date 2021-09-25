@@ -1,13 +1,13 @@
 const eris = require("eris-additions")(require("eris"))
 const axios = require("axios")
+const mongoose = require("mongoose")
+let CONNECTED = false
 
 global.bot = new eris(process.env.BOT_TOKEN, {
   defaultImageFormat: "png",
   defaultImageSize: 2048,
   getAllUsers: false,
   disableEvents: {
-    CHANNEL_CREATE: true,
-    CHANNEL_DELETE: true,
     CHANNEL_UPDATE: true,
     GUILD_BAN_ADD: true,
     GUILD_BAN_REMOVE: true,
@@ -20,15 +20,22 @@ global.bot = new eris(process.env.BOT_TOKEN, {
     TYPING_START: true,
     VOICE_STATE_UPDATE: true,
     PRESENCE_UPDATE: true,
-    GUILD_MEMBER_ADD: true,
-    GUILD_MEMBER_REMOVE: true,
     GUILD_MEMBER_UPDATE: true
   },
   messageLimit: 10
 })
 
-bot.on("ready", () => {
+bot.on("ready", async () => {
   console.log("iniciado!")
+  if(CONNECTED) return;
+  await mongoose.connect(process.env.DB_URL)
+  const UsersSchema = new mongoose.Schema({
+    userID: Number,
+    blacklisted: Boolean,
+    blacklist_reason: String
+  })
+  global.DB_MODEL = mongoose.model("Users", UsersSchema)
+  CONNECTED = true
 })
 
 bot.on("messageCreate", (message) => {

@@ -71,10 +71,10 @@ module.exports = {
               }
             ],
             thumbnail: {
-              url: "https://cdn.discordapp.com/attachments/886564394711011349/888182407935688704/AKedOLQyg8WvakSde1GgxVVtXWrwi1ORkHJUI-QfW7_b0Qs900-c-k-c0x00ffffff-no-rj.png"
+              url: Config.images_server + "/freefire_icon.png"
             },
             image: {
-              url: weapon.skins[0] ? weapon.skins[0].image_url : "https://cdn.discordapp.com/attachments/886564394711011349/888182407935688704/AKedOLQyg8WvakSde1GgxVVtXWrwi1ORkHJUI-QfW7_b0Qs900-c-k-c0x00ffffff-no-rj.png"
+              url: weapon.skins[0] ? weapon.skins[0].image_url : Config.images_server + "/freefire_icon.png"
             },
             footer: {
               text: "Fonte: https://ffstaticdata.switchblade.xyz/pt/weapons.json"

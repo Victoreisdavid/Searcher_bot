@@ -20,7 +20,7 @@ module.exports = async function (guildID) {
         console.log(`Limitações em ${file} detectadas.`)
         if (prop.limitations.register) {
           console.log(`Limitações de registro detectadas em ${file}`)
-          if (prop.limitations.register.local) return;
+          if (prop.limitations.register.local) continue;
         }
       }
       post(`https://discord.com/api/v8/applications/${ID}/guilds/${guildID}/commands`, prop.command, {
@@ -33,7 +33,7 @@ module.exports = async function (guildID) {
         console.log(`Limitações em ${file} detectadas.`)
         if (prop.limitations.register) {
           console.log(`Limitações de registro detectadas em ${file}`)
-          if (prop.limitations.register.global) return;
+          if (prop.limitations.register.global) continue;
         }
       }
       post(`https://discord.com/api/v9/applications/${ID}/commands`, prop.command, {

@@ -5,9 +5,9 @@
 let guildID = process.argv[2]
 let commandName;
 if (!isNaN(guildID)) {
-  commandName = process.argv[3]
+  commandName = process.argv.splice(3).join(" ")
 } else {
-  commandName = process.argv[2]
+  commandName = process.argv.splice(2).join(" ")
   guildID = undefined
 }
 

@@ -13,7 +13,7 @@ module.exports = class ChocolateyAPI extends API {
       params: {
         $filter: 'IsLatestVersion',
         $skip: 0,
-        $top: 10,
+        $top: 12,
         searchTerm: encodeURIComponent(`'${query}'`),
         targetFramework: "''",
         includePrerelease: false
