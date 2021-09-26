@@ -125,7 +125,7 @@ async function search_subcommand(data) {
   const options = []
   packages.forEach(pkg => {
     options.push({
-      label: pkg.Title.length > 100 ? pkg.Title.string(0, 97) + '...' : pkg.Title,
+      label: pkg.Title.length > 100 ? pkg.Title.substring(0, 97) + '...' : pkg.Title,
       value: pkg.Id
     })
   })
