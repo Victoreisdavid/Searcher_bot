@@ -12,8 +12,8 @@ async function search_subcommand(data) {
       }
     }
   }
-  if (libs.length > 15) {
-    libs.splice(0, 15)
+  if (libs.length > 20) {
+    libs.splice(20, libs.length)
   }
   const mappedlibs = libs.map((lib, i) => i + " - " + lib.package.name)
   const options = []

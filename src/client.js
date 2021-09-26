@@ -19,8 +19,7 @@ global.bot = new eris(process.env.BOT_TOKEN, {
     MESSAGE_DELETE_BULK: true,
     TYPING_START: true,
     VOICE_STATE_UPDATE: true,
-    PRESENCE_UPDATE: true,
-    GUILD_MEMBER_UPDATE: true
+    PRESENCE_UPDATE: true
   },
   messageLimit: 10
 })

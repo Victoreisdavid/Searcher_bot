@@ -19,6 +19,8 @@
   "homepage": "https://github.com/Victoreisdavid/Searcher_bot#readme",
   "dependencies": {
     "axios": "^0.21.4",
+    "bluebird": "^3.7.2",
+    "deepai": "^1.0.17",
     "dotenv": "^10.0.0",
     "eris": "^0.15.1",
     "eris-additions": "^1.4.1",
