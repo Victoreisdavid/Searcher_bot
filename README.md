@@ -4,7 +4,7 @@
 Faça pesquisas dentro do [Discord](https://discord.com) de forma simples e interativa.
 
 ## 🧐 Como adicionar?
-Você pode adicionar a versão oficial do Searcher [cliquando aqui!](https://discord.com/api/oauth2/authorize?client_id=886046032616624138&permissions=277092879424&scope=bot%20applications.commands)
+Você pode adicionar a versão oficial do Searcher [clicando aqui!](https://discord.com/api/oauth2/authorize?client_id=886046032616624138&permissions=277092879424&scope=bot%20applications.commands)
 ### Aviso sério
 O searcher nunca irá pedir permissões para mudar algo no seu servidor, ou coletar informações além de:
 - ID dos usuários que utilizaram algum comando
