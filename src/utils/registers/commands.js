@@ -1,5 +1,5 @@
 const { readdirSync } = require("fs")
-const { post } = require("axios")
+const { put } = require("axios")
 const ID = "886046032616624138"
 
 function sleep() {
@@ -11,6 +11,7 @@ function sleep() {
 }
 
 module.exports = async function (guildID) {
+  const commands = []
   const files = readdirSync("./src/commands")
   for (const file of files) {
     console.log(`${file} - registrado`)
@@ -23,11 +24,7 @@ module.exports = async function (guildID) {
           if (prop.limitations.register.local) continue;
         }
       }
-      post(`https://discord.com/api/v8/applications/${ID}/guilds/${guildID}/commands`, prop.command, {
-        headers: {
-          Authorization: `Bot ${process.env.BOT_TOKEN}`
-        }
-      })
+      commands.push(prop.command)
     } else {
       if (prop.limitations) {
         console.log(`Limitações em ${file} detectadas.`)
@@ -36,12 +33,21 @@ module.exports = async function (guildID) {
           if (prop.limitations.register.global) continue;
         }
       }
-      post(`https://discord.com/api/v9/applications/${ID}/commands`, prop.command, {
-        headers: {
-          Authorization: `Bot ${process.env.BOT_TOKEN}`
-        }
-      })
+      commands.push(prop.command)
     }
     await sleep()
+  }
+  if(guildID) {
+    put(`https://discord.com/api/v8/applications/${ID}/guilds/${guildID}/commands`, commands, {
+      headers: {
+        Authorization: `Bot ${process.env.BOT_TOKEN}`
+      }
+    })
+  } else {
+    put(`https://discord.com/api/v9/applications/${ID}/commands`, commands, {
+      headers: {
+        Authorization: `Bot ${process.env.BOT_TOKEN}`
+      }
+    })
   }
 }

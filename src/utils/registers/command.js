@@ -2,15 +2,7 @@ const { readdirSync } = require("fs")
 const { post } = require("axios")
 const ID = "886046032616624138"
 
-function sleep() {
-  setTimeout(() => {
-    return new Promise((resolve, reject) => {
-      resolve("ok")
-    })
-  }, 2000)
-}
-
-module.exports = async function (guildID, file) {
+module.exports = function (guildID, file) {
   console.log(guildID, file)
   const prop = require(`../../commands/${file}`)
   if (guildID) {
