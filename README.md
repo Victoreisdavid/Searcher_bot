@@ -1,159 +1,107 @@
-# 🔎 Searcher
-Faça pesquisas dentro do discord.
+<img src="https://Searcherbot.reapper.repl.co/cdn/searcher_logo.png" alt="searcher_logo" width="80%"/>
 
-# 🤔 Como adicionar?
-Você pode adicionar a versão oficial do **Searcher** [clicando aqui](https://discord.com/api/oauth2/authorize?client_id=886046032616624138&permissions=277092879424&scope=bot%20applications.commands), e lembre-se, o Searcher **nunca irá pedir permissões para modificar o seu servidor, gerenciar membros ou mensagens.**
+# Searcher
+Faça pesquisas dentro do [Discord](https://discord.com) de forma simples e interativa.
 
-# Caraterísticas
-## 1. Facilidade de usar
-O Searcher é **fácil de usar**, com sistemas relativamente simples, pensados principalmente para facilidade de uso para o usuário final.
-## 2. Seguro e estável
-A equipe de desenvolvimento do Searcher **prioriza ao máximo a segurança para os servidores**, estamos direto analisando possibilidades de bloquear a exibição de conteúdos NSFW (pornografia, gore, etc.), fazer o Searcher exibir conteúdos NSFW é realmente uma missão difícil e cansativa.
-## 3. Código Aberto
-O código do Searcher é **aberto**, qualquer um pode contribuir com o projeto abrindo pull requests,issues para reportar bugs, etc.
+## Como adicionar?
+Você pode adicionar a versão oficial do Searcher [cliquando aqui!](https://discord.com/api/oauth2/authorize?client_id=886046032616624138&permissions=277092879424&scope=bot%20applications.commands)
+### Aviso sério
+O searcher nunca irá pedir permissões para mudar algo no seu servidor, ou coletar informações além de:
+- ID dos usuários que utilizaram algum comando
+
+Sempre verifique o ID da aplicação caso entre em um link postado fora desse repositório ou fora do [website oficial do Searcher](https://searcherbot.vercel.app).
+Lembrando que o ID do Searcher é `886046032616624138`.
+
+## Características
+- Fácil de usar
+- Seguro
+- Gratuito
+
+# Suporte 
+Existem duas formas de obter suporte sobre o Searcher, sendo elas:
+- Abrindo uma issue nesse repositório.
+- Entrando no [servidor de suporte](https://discord.gg/fyVcBpfJpF)
 
 # Área dos programadores
-Se interessou pelo código? Achou algum erro, quer fazer uma versão auto-hospedada (famoso fork/clone), ou simplesmente achou uma forma de deixar o código melhor? Aqui é a sua área!
-## 🚀 Selfhosting
-Caso você queira fazer uma versão auto-hospedada, precisa saber algumas coisas antes.
+Está interessado em contribuir com o projeto? melhorar o código, ou simplesmente fazer uma versão auto-hospedada? aqui é a sua área.
+## Self-hosting
+Antes de fazer uma versão auto-hospedada, considere algumas coisas:
+- O Searcher está em desenvolvimento, novas coisas serão feitas, e nem sempre o guia de self-hosting estará 100% atualizado (porém não vamos deixar ele aqui penando, lógico que ele irá ser atualizado também.)
+- Respeite os desenvolvedores do projeto, dê os créditos e não fale que você quem fez.
+- Também siga todas as exigências da licença "GPLv3".
+- Você deve ter um servidor `MONGODB` para se conectar.
 
-### Aviso sério
-Esse projeto é comunitário e aberto, **não é desenvolvido por profissionais**, não espere algo com altíssima qualidade.
-
-### Respeite a licença e os desenvolvedores do projeto
-Ao clonar esse código, você **deve seguir a licença** `GPLv3`. Destacando duas coisas que você deve seguir (a licença exige mais coisa, para mais detalhes, leia o arquivo `LICENSE`):
-- Você deve deixar as alterações no código públicas.
-- Você deve dar os créditos aos criadores, por favor não fale que você quem criou.
-
-### Instalando dependências.
-Depois de clonar esse repositório, execute o comando
+### Preparando o config.yml e as variáveis de ambiente
+O Searcher possuí algumas informações importantes guardadas no `config.yml`, por isso você deve preparar ele de forma correta (caso contrário sua versão auto-hospedada irá rodar com diversos bugs)
+Veja uma versão dele explicando as propriedades:
+```
+images_server: "" # URL da CDN de imagens do searcher, no caso ela rodará junto com o bot, então é o seu IP/dominio.
+bot: 
+ public_key: "" #Chave pública do seu bot, você deve obter ela no developers portal do discord.
+ id: "" # ID da sua aplicação.
+ devs: 
+  - "Shut!#5230"
+  - "Weariful#6650" # Aqui é a lista de desenvoledores (nome e tag), coloque eles com um "-" no começo.
+ dev_ids:
+  - "470976775145390082"
+  - "343778106340802580" # Aqui é a lista de desenvolvedores (ID), coloque eles com um "-" no começo.
+ logs:
+  channel:
+   id: "" #Esse é o ID do canal de logs do Searcher.
+```
+Prepare o seu `config.yml` com base nas informações acima.
+Agora as variáveis de ambiente, você deve criar um arquivo chamado `.env`, e colocar nele as seguintes informações:
+```
+BOT_TOKEN=token da sua aplicação
+DB_URL=URL do seu banco de dados MONGODB
+DEEPAI_KEY=token de acesso do deepai
+```
+Para obter o token de acesso ao deepai, você deve criar uma conta em [deepai.org](https://deepai.org)
+### Instalando depedências e ligando o bot
+Antes, você deve instalar as dependências usando o comando:
 ```
 npm install
 ```
-isso irá instalar todas as dependências que estão no `package.json`.
-### Definindo váriaveis de ambiente
-No repositório, existe um arquivo chamado *".env.example"*, é um exemplo de como você deve criar seu arquivo *".env"*, que por motivos de segurança, não é deixado público junto com o código (pull requests que enviarem arquivos que não podem ficar públicos serão rejeitados).
-### Preparando o config.yaml
-Dentro do **config.yaml** estão algumas coisas importantes para o funcionamento do bot.
-```bash
-bot:
- public_key: "40cb884282ec0be554b591ff7304155f5b200e4a85d624f03486bb94f9a821ce"
- id: "886046032616624138"
- devs: 
-  - "Shut!#5230"
-  - "Weariful#6650"
- dev_ids:
-  - "470976775145390082"
-  - "343778106340802580"
- logs:
-  channel:
-   id: "886398255540367412"
-```
-esse é o config.yaml do Searcher, como você pode ver, é bem pequeno e simples.
-Veja uma versão explicando cada propriedade:
-```bash
-bot: #configurações do bot
- public_key: "" #chave pública do seu bot
- id: "" #ID do seu bot
- devs: #lista de desenvolvedores (nome e tag)
-  - "" #Coloque quantos nomes quiser, porém coloque um "-" no começo cada nome
- dev_ids: #lista de desenvolvedores (id)
-  - "" #Coloque quantos ID's quiser, porém coloque um "-" no começo de cada ID
- logs: #Configurações das logs
-  channel: # canal das logs
-   id: "" #ID do canal das logs
-```
-Seguindo os 2 exemplos acima, você deve montar o config.yaml do seu bot.
-
-### Testando o seu bot
-Depois de preparar as variáveis de ambiente e o config.yml, rode o seguinte comando no seu terminal:
+Isso irá instalar todas as dependências que estão no `package.json`.
+Após isso, você pode rodar o seguinte comando:
 ```
 node index.js
 ```
-Caso tudo ligar normalmente, parabéns, sua instância auto-hospedada está quase pronta. Só falta agora registrar os comandos e a url de interação.
-
+Caso tudo ligar, parabéns, você concluiu boa parte do trabalho, agora falta algumas coisinhas
 ### Registrando os comandos
-A forma de registrar os comandos é altamente configurável.
-#### Afinal, qual é a estrutura de um comando?
-Todos os comandos estão localizados em `src/commands`, cada um exporta um objeto com as suas informações, e uma função **obrigatória** para executar o comando, e outra *opcional* para gerenciar interações
-##### Estrutura de um comando
-nota: tudo o que terminar com "?" significa que é opcional.
-
-Propriedade | Descrição | tipo 
------------ | --------- | ----
-command | Propriedades que serão enviadas ao discord. | `Object`
-command.name | Nome do comando | `String`
-command.description | Descrição do comando |  `String`
-command.type`?` | Tipo de comando | `Number`
-command.options`?` | [Opções do comando](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure) | `Array`
-limitations`?` | Limitações do comando | `Object`
-limitations.register`?` | Limitações aplicadas na hora de registrar o comando | `Object`
-limitations.register.global`?` | Limitar o registro global do comando? (ignorar ele, resumindo), `true` = sim, `false` = não | `Boolean`
-limitations.register.local`?` | Limitar o registro local do comando? (quando registra apenas em um servidor), `true` = sim, `false` = não | `Boolean`
-execute | Função que executa o comando (não enviado ao discord) | `Function`
-handleInteraction`?` | Função executada para responder a interações nos componentes de mensagem. | `Function`
-
-Exemplo de um objeto de comando:
-```javascript
-{
-    command: {
-        name: "Nome do comando",
-        description: "Descrição do comando",
-        type: "tipo do comando",
-        options: [] //Opções do comando
-    },
-    execute: async function(data) {
-        //Nota: data é o único parâmetro passado, nele contém tudo o que o discord envia ao webserver quando um comando é usado.
-        return {
-            type: 4, //type de resposta 4 significa "CHANNEL_MESSAGE_WITH_SOURCE", resumindo, envia uma mensagem.
-            data: { //conteúdo da resposta
-                content: "Olá mundo!"
-            }
-        }
-    }
-}
-```
-
-Sabendo disso, você pode ir para o próximo tópico.
-
-#### Registrando os comandos globalmente
-Para registrar todos eles globalmente, é muito simples, rode isso no seu terminal:
+Agora você deve registrar os comandos, essa parte é relativamente simples.
+Para registrar todos os comandos globalmente, é só rodar o seguinte comando:
 ```
 node registerCommands.js
 ```
-Feito isso, todos os comandos serão registrados globalmente (lembrando que leva até 1 hora pra atualizar em todos os servidores)
-#### Registrando comandos localmente (apenas em um servidor)
-Registrar comandos localmente também é muito simples, é quase igual a forma anterior, porém com um parâmetro adicional, o ID do servidor que o comando será registrado.
+Nota: Os comandos globais demoram até 1 hora para atualizar em todos os servidores.
+Porém, se você fizer alterações nas informações do comando (só há necessidade de atualizar caso você mudar algo dentro da propriedade `command`), você pode registrar em um servidor primeiro para não precisar esperar 1 hora.
+Para registrar comandos localmente, é só rodar o comando:
 ```
-node registerCommands.js <id do servidor>
+node registerCommands.js <ID do servidor>
 ```
-Feito isso, os comandos seráo registrados no servidor que você colocou o ID, se for válido e o bot estiver nele.
-#### Registrando apenas um comando específico
-As vezes registrar todos os comandos de uma vez, simplesmente porque você editou apenas um é um pouco cansativo (visto que se registrados globalmente, todos podem levar até 1 hora para atualizar em todos os servidores.), por isso também existe uma forma de registrar apenas um comando.
-##### Registrando apenas um comando globalmente
-Para fazer isso é simples, rode o seguinte comando:
+#### Registrando apenas um comando
+As vezes editar todos os comandos simplesmente porque você mudou um só é meio desnecessário.
+Felizmente o Searcher possui um sistema pra evitar isso.
+Para registrar um comando globalmente, é só você usar:
 ```
 node registerCommand.js <nome do arquivo do comando>
+````
+Para registrar um comando em apenas um servidor, é só você usar:
 ```
-feito isso, o comando será registrado globalmente.
-lembrando: **o nome do ARQUIVO onde está o código do comando.**
-##### Registrando apenas um comando localmente
-Para registrar um comando localmente, use dessa forma:
+node registerCommand.js <nome do arquivo do comando> <ID do servidor>
 ```
-node registerCommand.js <ID do servidor> <nome do arquivo do comando>
-```
-feito isso, o comando será registrado no servidor.
-#### Preparando seu bot pra receber interações no webserver
-O Searcher *não usa a gateway pra receber e responder comandos*, nós somos modinhas, usamos webserver 😎👍
-Antes de tudo, descubra qual a URL do seu webserver (o discord não consegue enviar solicitação para o `localhost`, então dê uma forma de expor no seu IP público, caso esteja no seu pc).
-Caso você esteja em uma plataforma como o [heroku](https://heroku.com), você pode ver nas configurações onde seu servidor web pode ser encontrado.
-##### Para ver a URL do seu webserver no heroku:
-1. Vá na parte de configurações do seu app, localize "settings" na barra de navegação.
-2. Desça até encontrar por "Domains", exemplo abaixo:
-
-![exemplo de como ver dominio no heroku](https://cdn.discordapp.com/attachments/886736113237127188/887510069745430629/unknown.png)
-Lembrando que se você estiver usando outra plataforma, pode consultar o google, ou a documentação da plataforma para ver onde descobrir a URL do seu webserver.
-##### Configurando a URL de interação
-Na página de configurações gerais do seu app no discord, procure por `INTERACTIONS ENDPOINT URL`, como na imagem abaixo (onde tá censurado a URL):
-![imagem de exemplo](https://cdn.discordapp.com/attachments/886736113237127188/887507932340711444/unknown.png)
-lá você coloca a URL do seu webserver, com o endpoint `/api/interaction`, logo depois clique em `save`. Logo após isso, o discord irá enviar algumas solicitações de testes para o seu servidor, se tudo ocorrer certo, sua versão auto-hospedada está pronta!
+**Lembrando: É o `NOME do arquivo do comando`, e não o nome do comando.**
+### Registrando seu webserver
+O Searcher não **utiliza gateway** para receber e responder comandos, nós somos modinhas, usamos webserver.
+Para registrar seu webserver é bem simples, quando você rodar ele, veja qual a URL/IP (lembrando que se você rodar no seu PC, você deve expor o webserver no seu IP público, já que o discord não pode enviar solicitações para o IP local.), o endpoint dos comandos é `/api/interaction`.
+Então a url seria: `<seu ip ou dominio>/api/interaction`
+#### Configurando sua URL no developer portal
+Vá nas configurações da sua aplicação no discord developer portal, logo na página de informações gerais, lá em baixo existe uma opção chamada `INTERACTIONS ENDPOINT URL`, você deve colocar a url do seu webserver lá.
+Exemplo abaixo:
+![Exemplo de URL de interação](https://Searcherbot.reapper.repl.co/cdn/interaction_url_example.jpg)
+Depois disso, sua instância auto-hospedadas está pronta
+lembrando que:
+- Você precisa ter um servidor MONGODB para salvar alguns dados.
+- Você precisa criar uma conta no deepai, para obter uma chave de api, já que o searcher vai usar o deepai pra analisar imagens.
+- Não vamos dar suporte para versões auto-hospedadas.
