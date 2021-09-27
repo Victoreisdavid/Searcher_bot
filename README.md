@@ -1,9 +1,9 @@
-<img src="https://Searcherbot.reapper.repl.co/cdn/searcher_logo.png" alt="searcher_logo" width="80%"/>
+<img src="https://Searcherbot.reapper.repl.co/cdn/searcher_logo.png" alt="searcher_logo" width="40%"/>
 
-# Searcher
+# 🔎 Searcher
 Faça pesquisas dentro do [Discord](https://discord.com) de forma simples e interativa.
 
-## Como adicionar?
+## 🧐 Como adicionar?
 Você pode adicionar a versão oficial do Searcher [cliquando aqui!](https://discord.com/api/oauth2/authorize?client_id=886046032616624138&permissions=277092879424&scope=bot%20applications.commands)
 ### Aviso sério
 O searcher nunca irá pedir permissões para mudar algo no seu servidor, ou coletar informações além de:
@@ -12,19 +12,19 @@ O searcher nunca irá pedir permissões para mudar algo no seu servidor, ou cole
 Sempre verifique o ID da aplicação caso entre em um link postado fora desse repositório ou fora do [website oficial do Searcher](https://searcherbot.vercel.app).
 Lembrando que o ID do Searcher é `886046032616624138`.
 
-## Características
+## 🔷 Características
 - Fácil de usar
 - Seguro
 - Gratuito
 
-# Suporte 
+# 🆘 Suporte 
 Existem duas formas de obter suporte sobre o Searcher, sendo elas:
 - Abrindo uma issue nesse repositório.
 - Entrando no [servidor de suporte](https://discord.gg/fyVcBpfJpF)
 
-# Área dos programadores
+# 🖥️ Área dos programadores
 Está interessado em contribuir com o projeto? melhorar o código, ou simplesmente fazer uma versão auto-hospedada? aqui é a sua área.
-## Self-hosting
+## 🚀 Self-hosting
 Antes de fazer uma versão auto-hospedada, considere algumas coisas:
 - O Searcher está em desenvolvimento, novas coisas serão feitas, e nem sempre o guia de self-hosting estará 100% atualizado (porém não vamos deixar ele aqui penando, lógico que ele irá ser atualizado também.)
 - Respeite os desenvolvedores do projeto, dê os créditos e não fale que você quem fez.
