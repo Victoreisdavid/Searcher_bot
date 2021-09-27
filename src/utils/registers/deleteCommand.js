@@ -1,5 +1,5 @@
 const axios = require("axios")
-const ID = "886046032616624138"
+const ID = Config.bot.id
 
 module.exports = async function (guildID, commandName) {
   console.log("deletando comando:", commandName)

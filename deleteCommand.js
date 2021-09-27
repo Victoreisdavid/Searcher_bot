@@ -1,6 +1,11 @@
 /*
 	O parâmetro 1 deve ser o ID do servidor, enquanto o 2 deve ser o nome do comando que você quer remover.
 */
+const { readFileSync, readdirSync } = require("fs")
+const { parse } = require("yaml")
+const yamlFile = readFileSync("./config.yaml", "utf8")
+
+global.Config = parse(yamlFile)
 
 let guildID = process.argv[2]
 let commandName;

@@ -1,6 +1,6 @@
 const { readdirSync } = require("fs")
 const { put } = require("axios")
-const ID = "886046032616624138"
+const ID = Config.bot.id
 
 function sleep() {
   setTimeout(() => {

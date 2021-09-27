@@ -1,6 +1,6 @@
 const { readdirSync } = require("fs")
 const { post } = require("axios")
-const ID = "886046032616624138"
+const ID = Config.bot.id
 
 module.exports = function (guildID, file) {
   console.log(guildID, file)
