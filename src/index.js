@@ -3,7 +3,6 @@
 */
 require('./ApisLoader');
 const app = require("fastify")()
-const bodyparser = require("body-parser")
 const nacl = require("tweetnacl")
 const { existsSync, readFileSync } = require("fs")
 const TOKEN = process.env.BOT_TOKEN
@@ -32,12 +31,6 @@ async function discordreq() {
     }
   })
 }
-
-/*app.use(bodyparser.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf
-  }
-}))*/
 
 app.register(require("fastify-raw-body"), {
   fields: "rawBody",
