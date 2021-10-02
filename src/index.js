@@ -2,10 +2,10 @@
 	Arquivo principal.
 */
 require('./ApisLoader');
-const app = require("express")()
+const app = require("fastify")()
 const bodyparser = require("body-parser")
 const nacl = require("tweetnacl")
-const { existsSync } = require("fs")
+const { existsSync, readFileSync } = require("fs")
 const TOKEN = process.env.BOT_TOKEN
 const publickey = Config.bot.public_key
 
@@ -33,11 +33,20 @@ async function discordreq() {
   })
 }
 
-app.use(bodyparser.json({
+/*app.use(bodyparser.json({
   verify: (req, res, buf) => {
     req.rawBody = buf
   }
-}))
+}))*/
+
+app.register(require("fastify-raw-body"), {
+  fields: "rawBody",
+  global: true
+})
+
+app.register(require("fastify-static"), {
+  root: __dirname + "/images"
+})
 
 app.get("/", function (req, res) {
   res
@@ -47,7 +56,7 @@ app.get("/", function (req, res) {
 
 app.get("/api/ram/status", function(req, res) {
   const status = require("./utils/ramStatus")
-  res.json(status.getStatus())
+  res.send(status.getStatus())
 })
 
 app.get("/cdn/:image", function(req, res) {
@@ -56,7 +65,7 @@ app.get("/cdn/:image", function(req, res) {
   let img = req.params["image"]
   if(!img) return res.status(404).send("Unknown image")
   if(!existsSync(`./src/images/${img}`)) return res.status(404).send("Unknown image")
-  return res.sendFile(__dirname + `/images/${img}`)
+  return res.sendFile(img)
 })
 
 app.post("/api/interaction", async function (req, res) {
@@ -78,16 +87,16 @@ app.post("/api/interaction", async function (req, res) {
   }
   if (req.body.type == 1) {
     await discordreq()
-    return res.status(200).json({
+    return res.status(200).send({
       type: 1
     })
   } else if (req.body.type == 3) {
     const command = commands.get(req.body.message.interaction.name)
     command.handleInteraction(req.body).then(response => {
-      return res.status(200).json(response)
+      return res.status(200).send(response)
     })
     .catch(error => {
-      return res.status(200).json({
+      return res.status(200).send({
         type: Constants.callback_type.MESSAGE,
         data: {
           content: `<:shit:887428144469000252> Aconteceu um erro quando você interagiu com a mensagem\n\`\`\`js\n${error}\`\`\``,
@@ -98,7 +107,7 @@ app.post("/api/interaction", async function (req, res) {
   } else {
     const user_data = await getUserData(req.body)
     if(user_data.blacklisted) {
-      return res.status(200).json({
+      return res.status(200).send({
         type: Constants.callback_type.MESSAGE,
         data: {
           embeds: [
@@ -123,10 +132,10 @@ app.post("/api/interaction", async function (req, res) {
     }
     const command = commands.get(req.body.data.name)
     command.execute(req.body).then(response => {
-      return res.status(200).json(response)
+      return res.status(200).send(response)
     })
     .catch(error => {
-      return res.status(200).json({
+      return res.status(200).send({
         type: Constants.callback_type.MESSAGE,
         data: {
           content: `<:shit:887428144469000252> Aconteceu um erro\n\`\`\`js\n${error}\`\`\``,
@@ -167,4 +176,4 @@ async function createUserData(data) {
   return d_data.save()
 }
 
-app.listen(process.env.PORT || 3030)
+app.listen(process.env.PORT || 3030, "0.0.0.0")

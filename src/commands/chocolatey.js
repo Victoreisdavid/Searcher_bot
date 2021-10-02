@@ -28,12 +28,19 @@ module.exports = {
             ]
           }
         ]
+      },
+      {
+        type: 1,
+        name: "about",
+        description: "O que é o chocolatey?"
       }
     ]
   },
   execute: async function execute(data) {
-    if(data.data.options[0].options[0].name == "search") {
+    if(data.data.options[0].options && data.data.options[0].options[0].name == "search") {
       return await search_subcommand(data)
+    } else if(data.data.options[0].name == "about") {
+      return await about_subcommand(data)
     }
   },
   handleInteraction: async function(data) {
@@ -68,11 +75,13 @@ module.exports = {
     const fields = [
       {
         name: ":mag_right: Informações gerais",
-        value: `**Publicado por:** ${package.Authors}\n**Link:** ${package.ProjectUrl ? `[Clique aqui](${package.ProjectUrl})` : `\`Não disponível.\``}\n**Página na chocolatey:** [Clique aqui](https://community.chocolatey.org/packages/${package.Id})\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`
+        value: `**Publicado por:** ${package.Authors}\n**Link:** ${package.ProjectUrl ? `[Clique aqui](${package.ProjectUrl})` : `\`Não disponível.\``}\n**Página na chocolatey:** [Clique aqui](https://community.chocolatey.org/packages/${package.Id})\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`,
+        inline: true
       },
       {
         name: "<:origin:886471923301744671> Estatísticas",
-        value: `**Número total de downloads:** \`${package.DownloadCount}\`\n**URL da licença:** ${package.LicenseUrl || `\`Não tem.\``}\n**Criado em:** \`${created_parsed}\`\n**Publicado em:** \`${published_parsed}\``
+        value: `**Número total de downloads:** \`${package.DownloadCount}\`\n**URL da licença:** ${package.LicenseUrl || `\`Não tem.\``}\n**Criado em:** \`${created_parsed}\`\n**Publicado em:** \`${published_parsed}\``,
+        inline: true
       }
     ]
     if(package.BugTrackerUrl) {
@@ -158,6 +167,36 @@ async function search_subcommand(data) {
               options: options
             }
           ]
+        }
+      ]
+    }
+  }
+}
+
+async function about_subcommand(data) {
+  return {
+    type: Constants.callback_type.MESSAGE,
+    data: {
+      embeds: [
+        {
+          title: "Chocolatey - oque é?",
+          description: `Chocolatey é um gerenciador de pacotes para Windows, muito parecido com o \`apt\` e \`yum\` do linux.`,
+          fields: [
+            {
+              name: "<:shit:887428144469000252> Por que uma coisa dessa seria útil no windows??",
+              value: `Pra quem quer só instalar coisas, clicar em botões pode ser mais fácil mesmo (maneira padrão de automatizar isso no windows, kk), porém para automizar processos e tarefas, é díficil ficar clicando em botões.`
+            },
+            {
+              name: "<:noo:886468596363059260> Como que usa isso?",
+              value: `Para instalar o chocolatey, pode ver o guia oficial [clicando aqui](https://chocolatey.org/install).\nPra instalar pacotes (ou programas) é só você rodar: \`\`\`choco install "nome do pacote"\`\`\`\nExemplo: \`\`\`choco install vscode\`\`\``
+            }
+          ],
+          image: {
+            url: Config.images_server + "/Chocolatey_icon.png"
+          },
+          footer: {
+            text: "Para mais informações acesse: https://chocolatey.org/"
+          }
         }
       ]
     }
