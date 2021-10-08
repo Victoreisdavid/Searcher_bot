@@ -32,6 +32,11 @@ async function search_subcommand(data) {
         {
           title: "Searcher - npmjs.com",
           description: `Pesquisei por \`${data.data.options[0].options[0].value}\` no npmjs, veja os resultados.`,
+          color: Config.bot.embeds.colors.red,
+          timestamp: new Date(),
+          thumbnail: {
+            url: Config.images_server + "/Npm_logo.png"
+          },
           fields: [
             {
               name: ":mag_right: Resultados da pesquisa",
@@ -114,6 +119,11 @@ async function lookup_subcommand(data) {
         {
           title: `${lib.name} - v${lib.version}`,
           description: lib.description,
+          color: Config.bot.embeds.colors.red,
+          timestamp: new Date(),
+          thumbnail: {
+            url: Config.images_server + "Npm_logo.png"
+          },
           fields: fields
         }
       ]
@@ -220,6 +230,11 @@ module.exports = {
           {
             title: `${lib.name} - v${lib.version}`,
             description: `${lib.description}`,
+            color: Config.bot.embeds.colors.red,
+            timestamp: new Date(),
+            thumbnail: {
+              url: Config.images_server + "/Npm_logo.png"
+            },
             fields: fields
           }
         ]

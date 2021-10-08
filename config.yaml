@@ -1,6 +1,10 @@
 images_server: "https://searcherbot.reapper.repl.co/cdn"
 bot:
  public_key: "40cb884282ec0be554b591ff7304155f5b200e4a85d624f03486bb94f9a821ce"
+ embeds:
+  colors: 
+   blue: 8304098
+   red: 15158332
  id: "886046032616624138"
  devs: 
   - "Shut!#5230"

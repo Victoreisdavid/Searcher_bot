@@ -75,7 +75,7 @@ module.exports = {
     const fields = [
       {
         name: ":mag_right: Informações gerais",
-        value: `**Publicado por:** ${package.Authors}\n**Link:** ${package.ProjectUrl ? `[Clique aqui](${package.ProjectUrl})` : `\`Não disponível.\``}\n**Página na chocolatey:** [Clique aqui](https://community.chocolatey.org/packages/${package.Id})\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`,
+        value: `**Publicado por:** ${package.Authors}\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`,
         inline: true
       },
       {
@@ -86,30 +86,28 @@ module.exports = {
     ]
     if(package.BugTrackerUrl) {
       fields.push({
-        name: "<:ebaa:886554070075203625> Seria legal você ajudar",
+        name: '<:ebaa:886554070075203625> Seria legal você ajudar',
         value: `Caso você ache um problema em **${package.Title}**, considere abrir uma issue em: ${package.BugTrackerUrl}`
       })
     }
-    fields.push({
-      name: ":thinking: Como instalo?",
-      value: `Rode isso no seu terminal:\n\`\`\`choco install ${package.Id}\`\`\`\n**Nota: caso não tenha o chocolatey instalado, [clique aqui pra instalar!](https://chocolatey.org/install)**`
-    })
     return {
       type: Constants.callback_type.EDIT_MESSAGE,
       data: {
         embeds: [
           {
             title: `${package.Title} - v${package.Version}`,
-            description: package.Summary || "Sem descrição <:noo:886468596363059260>",
-            fields: fields,
+            color: Config.bot.embeds.colors.blue,
+            url: package.ProjectUrl || `https://community.chocolatey.org/packages/${package.Title}`,
+            description: package.Summary || 'Sem descrição <:noo:886468596363059260>',
+            fields,
+            timestamp: new Date(),
             thumbnail: {
-              url: Config.images_server + "/Chocolatey_icon.png"
-            },
-            image: {
               url: package.IconUrl
             },
-            footer: {
-              text: `${package.Copyright || "SearcherBot - v1.0"}`
+            author: {
+              name: 'Chocolatey Package',
+              url: 'https://chocolatey.org',
+              icon_url: Config.images_server + '/Chocolatey_icon.png'
             }
           }
         ]
@@ -143,7 +141,8 @@ async function search_subcommand(data) {
     data: {
       embeds: [
         {
-          title: "Searcher - chocolatey.org",
+          title: 'Searcher - chocolatey.org',
+          color: Config.bot.embeds.colors.blue,
           description: `Pesquisei por \`${query}\` no chocolatey, veja os resultados.`,
           fields: [
             {
@@ -181,6 +180,7 @@ async function about_subcommand(data) {
         {
           title: "Chocolatey - oque é?",
           description: `Chocolatey é um gerenciador de pacotes para Windows, muito parecido com o \`apt\` e \`yum\` do linux.`,
+          color: Config.bot.embeds.colors.blue,
           fields: [
             {
               name: "<:shit:887428144469000252> Por que uma coisa dessa seria útil no windows??",
@@ -191,7 +191,7 @@ async function about_subcommand(data) {
               value: `Para instalar o chocolatey, pode ver o guia oficial [clicando aqui](https://chocolatey.org/install).\nPra instalar pacotes (ou programas) é só você rodar: \`\`\`choco install "nome do pacote"\`\`\`\nExemplo: \`\`\`choco install vscode\`\`\``
             }
           ],
-          image: {
+          thumbnail: {
             url: Config.images_server + "/Chocolatey_icon.png"
           },
           footer: {
