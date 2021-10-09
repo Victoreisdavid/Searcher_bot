@@ -38,7 +38,7 @@ module.exports = async function (guildID) {
     await sleep()
   }
   if(guildID) {
-    put(`https://discord.com/api/v8/applications/${ID}/guilds/${guildID}/commands`, commands, {
+    put(`https://discord.com/api/v9/applications/${ID}/guilds/${guildID}/commands`, commands, {
       headers: {
         Authorization: `Bot ${process.env.BOT_TOKEN}`
       }

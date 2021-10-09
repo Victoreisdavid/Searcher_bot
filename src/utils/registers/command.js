@@ -12,7 +12,7 @@ module.exports = function (guildID, file) {
         if (prop.limitations.register.local) return;
       }
     }
-    post(`https://discord.com/api/v8/applications/${ID}/guilds/${guildID}/commands`, prop.command, {
+    post(`https://discord.com/api/v9/applications/${ID}/guilds/${guildID}/commands`, prop.command, {
       headers: {
         Authorization: `Bot ${process.env.BOT_TOKEN}`
       }
