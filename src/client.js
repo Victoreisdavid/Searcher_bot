@@ -21,7 +21,8 @@ global.bot = new eris(process.env.BOT_TOKEN, {
     VOICE_STATE_UPDATE: true,
     PRESENCE_UPDATE: true
   },
-  messageLimit: 10
+  messageLimit: 10,
+  restMode: true
 })
 
 bot.on("ready", async () => {
