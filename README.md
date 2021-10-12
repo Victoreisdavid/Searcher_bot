@@ -1,4 +1,4 @@
-<img src="https://Searcherbot.reapper.repl.co/cdn/searcher_logo.png" alt="searcher_logo" width="40%"/>
+<img src="https://backend-victoreisdavid.cloud.okteto.net/cdn/searcher_logo.png" alt="searcher_logo" width="40%"/>
 
 # 🔎 Searcher
 Faça pesquisas dentro do [Discord](https://discord.com) de forma simples e interativa.
