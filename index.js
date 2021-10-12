@@ -11,6 +11,8 @@ global.Constants = require("./src/utils/constants/flags")
 global.Bluebird = require("bluebird")
 global.commands = new Map()
 
+Config.images_server = process.env.IMAGES_SERVER
+
 const files_p = readdir("./src/commands")
 Bluebird.resolve(files_p).then(files => {
   for(const file of files) {

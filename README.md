@@ -35,7 +35,6 @@ Antes de fazer uma versão auto-hospedada, considere algumas coisas:
 O Searcher possuí algumas informações importantes guardadas no `config.yml`, por isso você deve preparar ele de forma correta (caso contrário sua versão auto-hospedada irá rodar com diversos bugs)
 Veja uma versão dele explicando as propriedades:
 ```
-images_server: "" # URL da CDN de imagens do searcher, no caso ela rodará junto com o bot, então é o seu IP/dominio.
 bot: 
  public_key: "" #Chave pública do seu bot, você deve obter ela no developers portal do discord.
  id: "" # ID da sua aplicação.
@@ -55,6 +54,8 @@ Agora as variáveis de ambiente, você deve criar um arquivo chamado `.env`, e c
 BOT_TOKEN=token da sua aplicação
 DB_URL=URL do seu banco de dados MONGODB
 DEEPAI_KEY=token de acesso do deepai
+IMAGES_SERVER=url do servidor de imagens (cdn)
+
 ```
 Para obter o token de acesso ao deepai, você deve criar uma conta em [deepai.org](https://deepai.org)
 ### Instalando depedências e ligando o bot
