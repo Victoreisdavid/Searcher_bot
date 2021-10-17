@@ -107,4 +107,4 @@ dist
 okteto.exe
 
 # Config.yml
-config.yml
+config.yaml
