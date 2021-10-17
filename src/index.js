@@ -6,7 +6,7 @@ const app = require("fastify")()
 const nacl = require("tweetnacl")
 const { existsSync, readFileSync } = require("fs")
 const TOKEN = process.env.BOT_TOKEN
-const publickey = Config.bot.public_key
+const publickey = process.env.PUBLIC_KEY
 
 async function invalidreq(origin) {
   bot.createMessage(Config.bot.logs.channel.id, {

@@ -36,7 +36,6 @@ O Searcher possuí algumas informações importantes guardadas no `config.yml`, 
 Veja uma versão dele explicando as propriedades:
 ```
 bot: 
- public_key: "" #Chave pública do seu bot, você deve obter ela no developers portal do discord.
  id: "" # ID da sua aplicação.
  devs: 
   - "Shut!#5230"
@@ -55,6 +54,7 @@ BOT_TOKEN=token da sua aplicação
 DB_URL=URL do seu banco de dados MONGODB
 DEEPAI_KEY=token de acesso do deepai
 IMAGES_SERVER=url do servidor de imagens (cdn)
+PUBLIC_KEY=key publica do seu bot
 
 ```
 Para obter o token de acesso ao deepai, você deve criar uma conta em [deepai.org](https://deepai.org)
