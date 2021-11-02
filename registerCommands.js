@@ -8,5 +8,5 @@ const yamlFile = readFileSync("./config.yaml", "utf8")
 global.Config = parse(yamlFile)
 
 const guild_id = process.argv[2]
-console.log(`Registrando em`, guild_id == undefined ? "todos os servidores" : guild_id)
+
 require("./src/utils/registers/commands")(guild_id)

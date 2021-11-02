@@ -16,6 +16,4 @@ if (!isNaN(guildID)) {
   guildID = undefined
 }
 
-console.log(guildID, commandName)
-
 require("./src/utils/registers/deleteCommand")(guildID, commandName)

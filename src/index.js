@@ -8,39 +8,24 @@ const { existsSync, readFileSync } = require("fs")
 const TOKEN = process.env.BOT_TOKEN
 const publickey = process.env.PUBLIC_KEY
 
-async function invalidreq(origin) {
-  bot.createMessage(Config.bot.logs.channel.id, {
-    embed: {
-      title: "<:warn:886469809712291850> Solicitação inválida",
-      description: ":mag_right: Solicitação inválida detectada no endpoint, provavelmente é uma das verificações de rotina do discord.",
-      fields: [
-        {
-          name: "<:desktop:886471189017534494> Informações da solicitação",
-          value: `<:origin:886471923301744671> Origem: **${origin || "desconhecido"}**`
-        }
-      ]
-    }
-  })
-}
-
-async function discordreq() {
-  bot.createMessage(Config.bot.logs.channel.id, {
-    embed: {
-      title: ":ballot_box_with_check: Solicitação do discord",
-      description: "Solicitação do discord detectada, essa é uma das verificações de rotina feitas no endpoint pelo discord, nada grave."
-    }
-  })
-}
-
+/* 
+ * <Registro de plugins no fastify
+*/
 app.register(require("fastify-raw-body"), {
   fields: "rawBody",
   global: true
 })
+/* 
+ * Registro de plugins no fastify/>
+*/
 
 app.register(require("fastify-static"), {
   root: __dirname + "/images"
 })
 
+/*
+ * <Rotas
+*/
 app.get("/", function (req, res) {
   res
   .status(200)
@@ -65,8 +50,7 @@ app.post("/api/interaction", async function (req, res) {
   const signature = req.headers["x-signature-ed25519"]
   const timestamp = req.headers["x-signature-timestamp"]
   const body = req.rawBody
-  if (!timestamp || !signature || !body) {
-    await invalidreq(req.get("origin"))
+  if(!timestamp || !signature || !body) {
     return res.sendStatus(401)
   }
   const isVerified = nacl.sign.detached.verify(
@@ -74,16 +58,15 @@ app.post("/api/interaction", async function (req, res) {
     Buffer.from(signature, 'hex'),
     Buffer.from(publickey, 'hex')
   );
-  if (!isVerified) {
-    await invalidreq(req.get("origin"))
+  if(!isVerified) {
     return res.status(401).send("invalid request signature")
   }
-  if (req.body.type == 1) {
+  if(req.body.type == 1) {
     await discordreq()
     return res.status(200).send({
       type: 1
     })
-  } else if (req.body.type == 3) {
+  } else if(req.body.type == 3) {
     const command = commands.get(req.body.message.interaction.name)
     command.handleInteraction(req.body).then(response => {
       return res.status(200).send(response)
@@ -138,7 +121,15 @@ app.post("/api/interaction", async function (req, res) {
     })
   }
 })
+/* 
+ * rotas/>
+*/
 
+/**
+ * Pega informações de um usuário no banco de dados, para saber se ele está na blacklist ou não.
+ * @param {Object} data Informações do usuário, poder ser objeto de um membro de guilda, ou usuário do discord.
+ * @returns {Object} Um objeto dizendo se o usuário está na blacklist ou não.
+*/
 async function getUserData(data) {
   const author = data.member ? data.member.user : data.user
   if(!author) {
@@ -160,6 +151,11 @@ async function getUserData(data) {
   }
 }
 
+/** 
+ * Cria um objeto com informações do usuário dentro do banco de dados.
+ * @param {Object} data Informações do usuário, poder ser objeto de um membro de guilda, ou usuário do discord. 
+ * @returns {Object} Informações do usuário que estão salvas no banco de dados
+*/
 async function createUserData(data) {
   const user = data.member ? data.member.user : data.user
   if(!user) {

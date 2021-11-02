@@ -12,5 +12,5 @@ files.map(file => {
   if(api.env && !api.env.every(env => !!process.env[env])) return;
   apisObj[api.name] = api;
 })
-console.log(`${Object.values(apisObj).length} apis carregadas.`);
+console.log(colors.yellow(`${Object.values(apisObj).length} apis carregadas.`));
 global.apis = apisObj;

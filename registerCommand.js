@@ -4,6 +4,7 @@
 const { readFileSync, readdirSync } = require("fs")
 const { parse } = require("yaml")
 const yamlFile = readFileSync("./config.yaml", "utf8")
+const colors = require("colors")
 
 global.Config = parse(yamlFile)
 
@@ -16,8 +17,6 @@ if (!isNaN(guildID)) {
   guildID = undefined
 }
 
-if (!commandName) return console.log("Coloque o nome do arquivo onde está o comando")
-
-console.log(guildID, commandName)
+if(!commandName) return console.log(colors.red("Coloque o nome do arquivo onde está o comando"))
 
 require("./src/utils/registers/command")(guildID, commandName)
