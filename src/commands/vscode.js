@@ -37,15 +37,6 @@ module.exports = {
 
 async function search_extension_subcommand(data) {
   const query = data.data.options[0].options[0].options[0].value
-  if(query.length < 3) {
-    return {
-      type: Constants.callback_type.MESSAGE,
-      data: {
-        content: "<:warn:886469809712291850> Por favor, pesquise algo com mais de 3 caracteres.",
-        flags: Constants.message_flags.EPHEMERAL
-      }
-    }
-  }
   let packages = await apis.vscode.search(query)
   if(!packages || packages.length == 0) {
     return {

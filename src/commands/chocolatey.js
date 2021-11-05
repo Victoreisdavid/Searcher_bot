@@ -174,12 +174,12 @@ async function handleInteraction(data) {
   const fields = [
     {
       name: ":mag_right: Informações gerais",
-      value: `**Publicado por:** ${package.Authors}\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`,
+      value: `**Publicado por: ${package.Authors}\nDocumentação: ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\nCódigo fonte: ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}**`,
       inline: true
     },
     {
       name: "<:origin:886471923301744671> Estatísticas",
-      value: `**Número total de downloads:** \`${package.DownloadCount}\`\n**URL da licença:** ${package.LicenseUrl || `\`Não tem.\``}\n**Criado em:** \`${created_parsed}\`\n**Publicado em:** \`${published_parsed}\``,
+      value: `**Número total de downloads: \`${package.DownloadCount}\`\nURL da licença: ${package.LicenseUrl ? `[clique aqui](${package.LicenseUrl})`: `\`Não tem.\`` }\nCriado em: \`${created_parsed}\`\nPublicado em: \`${published_parsed}\`**`,
       inline: true
     }
   ]
