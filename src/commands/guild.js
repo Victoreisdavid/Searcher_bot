@@ -31,44 +31,7 @@ module.exports = {
       return await search_user_subcommand(data)
     }
   },
-  handleInteraction: async function(data) {
-    const author = data.member ? data.member.user : data.user
-    if (author.id !== data.message.interaction.user.id) {
-      return {
-        type: Constants.callback_type.MESSAGE,
-        data: {
-          content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
-          flags: Constants.message_flags.EPHEMERAL
-        }
-      }
-    }
-    const ID = data.data.values[0]
-    const user = await apis.discord.get_guild_member(data.guild_id, ID)
-    return {
-      type: Constants.callback_type.EDIT_MESSAGE,
-      data: {
-        embeds: [
-          {
-            title: user.user.username,
-            fields: [
-              {
-                name: "<:desktop:886471189017534494> Informações do usuário",
-                value: `**ID:** \`${user.user.id}\``
-              },
-              {
-                name: "<:origin:886471923301744671> Informações no servidor",
-                value: `**Cargos:** \`${user.roles.length}\`\n**Nickname:** \`${user.nick || user.user.username}\``
-              }
-            ],
-            thumbnail: {
-              url: `https://cdn.discordapp.com/avatars/${user.user.id}/${user.user.avatar}`
-            },
-            timestamp: new Date()
-          }
-        ]
-      }
-    }
-  }
+  handleInteraction: handleInteraction
 }
 
 async function search_user_subcommand(data) {
@@ -132,6 +95,45 @@ async function search_user_subcommand(data) {
               options: options
             }
           ]
+        }
+      ]
+    }
+  }
+}
+
+async function handleInteraction(data) {
+  const author = data.member ? data.member.user : data.user
+  if (author.id !== data.message.interaction.user.id) {
+    return {
+      type: Constants.callback_type.MESSAGE,
+      data: {
+        content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
+        flags: Constants.message_flags.EPHEMERAL
+      }
+    }
+  }
+  const ID = data.data.values[0]
+  const user = await apis.discord.get_guild_member(data.guild_id, ID)
+  return {
+    type: Constants.callback_type.EDIT_MESSAGE,
+    data: {
+      embeds: [
+        {
+          title: user.user.username,
+          fields: [
+            {
+              name: "<:desktop:886471189017534494> Informações do usuário",
+              value: `**ID:** \`${user.user.id}\``
+            },
+            {
+              name: "<:origin:886471923301744671> Informações no servidor",
+              value: `**Cargos:** \`${user.roles.length}\`\n**Nickname:** \`${user.nick || user.user.username}\``
+            }
+          ],
+          thumbnail: {
+            url: `https://cdn.discordapp.com/avatars/${user.user.id}/${user.user.avatar}`
+          },
+          timestamp: new Date()
         }
       ]
     }

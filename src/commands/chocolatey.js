@@ -43,77 +43,7 @@ module.exports = {
       return await about_subcommand(data)
     }
   },
-  handleInteraction: async function(data) {
-    const author = data.member ? data.member.user : data.user
-    if (author.id !== data.message.interaction.user.id) {
-      return {
-        type: Constants.callback_type.MESSAGE,
-        data: {
-          content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
-          flags: Constants.message_flags.EPHEMERAL
-        }
-      }
-    }
-    const query = data.data.values[0]
-    const packages = await apis.chocolatey.search(query)
-    const package = packages.find(pkg => pkg.Id == query)
-    if(!package) {
-      return {
-        type: Constants.callback_type.MESSAGE,
-        data: {
-          content: "<:shit:887428144469000252> Ué, não achei nada",
-          flags: Constants.message_flags.EPHEMERAL
-        }
-      }
-    }
-    const published = new Date(getNumbers(package.Published))
-    const created = new Date(getNumbers(package.Created))
-    const published_date = DateTime.fromJSDate(published, { setZone: true, setLocale: true })
-    const created_date = DateTime.fromJSDate(created, { setZone: true, setLocale: true })
-    const published_parsed = published_date.setZone("America/Sao_Paulo").setLocale("pt-br").toLocaleString({ year: "numeric", month: 'long', day: 'numeric' })
-    const created_parsed = published_date.setZone("America/Sao_Paulo").setLocale("pt-br").toLocaleString({ year: "numeric", month: 'long', day: 'numeric' })
-    const fields = [
-      {
-        name: ":mag_right: Informações gerais",
-        value: `**Publicado por:** ${package.Authors}\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`,
-        inline: true
-      },
-      {
-        name: "<:origin:886471923301744671> Estatísticas",
-        value: `**Número total de downloads:** \`${package.DownloadCount}\`\n**URL da licença:** ${package.LicenseUrl || `\`Não tem.\``}\n**Criado em:** \`${created_parsed}\`\n**Publicado em:** \`${published_parsed}\``,
-        inline: true
-      }
-    ]
-    if(package.BugTrackerUrl) {
-      fields.push({
-        name: '<:ebaa:886554070075203625> Seria legal você ajudar',
-        value: `Caso você ache um problema em **${package.Title}**, considere abrir uma issue em: ${package.BugTrackerUrl}`
-      })
-    }
-    return {
-      type: Constants.callback_type.EDIT_MESSAGE,
-      data: {
-        embeds: [
-          {
-            title: `${package.Title} - v${package.Version}`,
-            color: Config.bot.embeds.colors.blue,
-            url: package.ProjectUrl || `https://community.chocolatey.org/packages/${package.Title}`,
-            description: package.Summary || 'Sem descrição <:noo:886468596363059260>',
-            fields,
-            timestamp: new Date(),
-            thumbnail: {
-              url: package.IconUrl
-            },
-            author: {
-              name: 'Chocolatey Package',
-              url: 'https://chocolatey.org',
-              icon_url: Config.images_server + '/Chocolatey_icon.png'
-            }
-          }
-        ]
-      }
-    }
-  }
+  handleInteraction: handleInteraction
 }
 
 async function search_subcommand(data) {
@@ -136,12 +66,21 @@ async function search_subcommand(data) {
       value: pkg.Id
     })
   })
+  const Token = bot.genToken(95)
+  bot.results_store.set(Token, packages)
+  const url = `https://community.chocolatey.org/packages?q=${encodeURIComponent(query)}`
   return {
     type: Constants.callback_type.MESSAGE,
     data: {
       embeds: [
         {
-          title: 'Searcher - chocolatey.org',
+          author: {
+            name: "Searcher - chocolatey.org",
+            url: "https://chocolatey.org/",
+            icon_url: Config.images_server + "/Chocolatey_icon.png"
+          },
+          url: url,
+          title: 'Resultados da pesquisa',
           color: Config.bot.embeds.colors.blue,
           description: `Pesquisei por \`${query}\` no chocolatey, veja os resultados.`,
           fields: [
@@ -161,7 +100,7 @@ async function search_subcommand(data) {
           components: [
             {
               type: 3,
-              custom_id: "chocolatey_box",
+              custom_id: Token,
               placeholder: "Selecione o resultado",
               options: options
             }
@@ -196,6 +135,78 @@ async function about_subcommand(data) {
           },
           footer: {
             text: "Para mais informações acesse: https://chocolatey.org/"
+          }
+        }
+      ]
+    }
+  }
+}
+
+async function handleInteraction(data) {
+  const author = data.member ? data.member.user : data.user
+  if (author.id !== data.message.interaction.user.id) {
+    return {
+      type: Constants.callback_type.MESSAGE,
+      data: {
+        content: "<:warn:886469809712291850> Apenas o autor do comando pode selecionar um resultado.",
+        flags: Constants.message_flags.EPHEMERAL
+      }
+    }
+  }
+  const query = data.data.values[0]
+  const packages = bot.results_store.get(data.data.custom_id)
+  if(!packages) {
+    return {
+      type: Constants.callback_type.MESSAGE,
+      data: {
+        content: "<:warn:886469809712291850> Eu perdi os resultados, por favor, use o comando novamente.",
+        flags: Constants.message_flags.EPHEMERAL
+      }
+    }
+  }
+  const package = packages.find(pkg => pkg.Id == query)
+  const published = new Date(getNumbers(package.Published))
+  const created = new Date(getNumbers(package.Created))
+  const published_date = DateTime.fromJSDate(published, { setZone: true, setLocale: true })
+  const created_date = DateTime.fromJSDate(created, { setZone: true, setLocale: true })
+  const published_parsed = published_date.setZone("America/Sao_Paulo").setLocale("pt-br").toLocaleString({ year: "numeric", month: 'long', day: 'numeric' })
+  const created_parsed = published_date.setZone("America/Sao_Paulo").setLocale("pt-br").toLocaleString({ year: "numeric", month: 'long', day: 'numeric' })
+  const fields = [
+    {
+      name: ":mag_right: Informações gerais",
+      value: `**Publicado por:** ${package.Authors}\n**Documentação:** ${package.DocsUrl ? `[Clique aqui](${package.DocsUrl})` : `\`Não tem.\``}\n**Código fonte:** ${package.PackageSourceUrl ? `[Clique aqui](${package.PackageSourceUrl})` : `\`Não disponível.\``}`,
+      inline: true
+    },
+    {
+      name: "<:origin:886471923301744671> Estatísticas",
+      value: `**Número total de downloads:** \`${package.DownloadCount}\`\n**URL da licença:** ${package.LicenseUrl || `\`Não tem.\``}\n**Criado em:** \`${created_parsed}\`\n**Publicado em:** \`${published_parsed}\``,
+      inline: true
+    }
+  ]
+  if(package.BugTrackerUrl) {
+    fields.push({
+      name: '<:ebaa:886554070075203625> Seria legal você ajudar',
+      value: `Caso você ache um problema em **${package.Title}**, considere abrir uma issue em: ${package.BugTrackerUrl}`
+    })
+  }
+  return {
+    type: Constants.callback_type.EDIT_MESSAGE,
+    data: {
+      embeds: [
+        {
+          title: `${package.Title} - v${package.Version}`,
+          color: Config.bot.embeds.colors.blue,
+          url: package.ProjectUrl || `https://community.chocolatey.org/packages/${package.Title}`,
+          description: package.Summary || 'Sem descrição <:noo:886468596363059260>',
+          fields,
+          timestamp: new Date(),
+          thumbnail: {
+            url: package.IconUrl
+          },
+          author: {
+            name: 'Chocolatey Package',
+            url: 'https://chocolatey.org',
+            icon_url: Config.images_server + '/Chocolatey_icon.png'
           }
         }
       ]

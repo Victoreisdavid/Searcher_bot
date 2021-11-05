@@ -1,5 +1,5 @@
 const eris = require("eris-additions")(require("eris"))
-const axios = require("axios")
+const { patch } = require("axios")
 const mongoose = require("mongoose")
 let CONNECTED = false
 
@@ -27,6 +27,10 @@ global.bot = new eris(process.env.BOT_TOKEN, {
   },
   messageLimit: 25
 })
+bot.results_store = new Map()
+bot.genToken = genToken
+bot.editInteraction = editInteraction
+
 
 /* 
  * Eventos
@@ -60,3 +64,35 @@ bot.on("error", (err) => console.log("aconteceu um erro.", err)) //<-- não reti
  * Conectando ao gateway do discord :D yay.
 */
 bot.connect()
+
+/**
+ * Gera um token completamente aleatório para guardar um resultado.
+ * @param {Number} length Tamanho do token.
+ * @returns {String} Token gerado.
+*/
+function genToken(length) {
+  const chars = "0123456789abcdefghijklmnopqrstuvwxyz"
+  const chars_splitted = chars.split("")
+  const token = []
+  for(let i = 0; i < length; ++i) {
+    token.push(
+      chars_splitted[Math.floor(Math.random() * chars_splitted.length)]
+    )
+  }
+  return token.join("")
+}
+
+/**
+ * Edita uma resposta inicial do comando.
+ * @param {String} token O token da interação
+ * @param {String} data O novo conteúdo da mensagem
+ * @returns {Boolean} Retorna true se conseguir editar, false se um erro acontecer.
+*/
+async function editInteraction(token, data) {
+  try {
+    const r_data = await patch(`https://discord.com/api/v9/webhooks/${bot.user.id}/${token}/messages/@original`, data)
+    return true
+  } catch(e) {
+    return false
+  }
+}

@@ -12,20 +12,28 @@ module.exports = class VSCodeExtensionsAPI extends API {
     return axios({
       data: {
           filters: [{
-            criteria: [{
-              filterType: 10,
-              value: name
-            }]
+            criteria: [
+              {
+                filterType: 10,
+                value: name
+              },
+              {
+                filterType: 8,
+                value: "Microsoft.VisualStudio.Code"
+              }
+            ]
           }],
           flags: 262
       },
       headers: {
-          accept: 'application/json; api-version=3.0-preview',
-          'accept-encoding': 'gzip',
-          'content-type': 'application/json; api-version=3.0-preview.1'
+        accept: 'application/json; api-version=3.0-preview',
+        'accept-encoding': 'gzip',
+        'content-type': 'application/json; api-version=3.0-preview.1'
       },
       url: API_URL,
       method: 'POST'
-    }).then(res => res.data?.results[0]?.extensions ?? []);
+    }).then(res => {
+      return res.data?.results[0]?.extensions ?? []
+    });
   }
 }
