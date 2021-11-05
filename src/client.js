@@ -36,8 +36,8 @@ bot.editInteraction = editInteraction
  * Eventos
 */
 bot.on("ready", async () => {
+  if(CONNECTED) return console.log(colors.yellow("Searcher reconectado ao gateway após uma perca de conexão."))
   console.log(colors.green("Searcher conectado ao gateway com sucesso!"))
-  if(CONNECTED) return;
   await mongoose.connect(process.env.DB_URL)
   const UsersSchema = new mongoose.Schema({
     userID: Number,

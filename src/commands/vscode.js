@@ -147,9 +147,9 @@ async function handleInteraction(data) {
   let t_daily = extension.statistics.find(e => e.statisticName == "trendingdaily")?.value
   let t_week = extension.statistics.find(e => e.statisticName == "trendingweekly")?.value
   let t_month = extension.statistics.find(e => e.statisticName == "trendingmonthly")?.value
-  t_daily = t_daily ? (t_daily * 100).toFixed(2) + "%" : "Unknown"
-  t_month = t_month ? (t_month * 100).toFixed(2) + "%" : "Unknown"
-  t_week = t_week ? (t_week * 100).toFixed(2) + "%" : "Unknown"
+  t_daily = t_daily ? (t_daily * 100).toFixed(2) + "%" : "0.00%"
+  t_month = t_month ? (t_month * 100).toFixed(2) + "%" : "0.00%"
+  t_week = t_week ? (t_week * 100).toFixed(2) + "%" : "0.00%"
   return {
     type: Constants.callback_type.EDIT_MESSAGE,
     data: {
