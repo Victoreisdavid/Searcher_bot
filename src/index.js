@@ -15,13 +15,13 @@ app.register(require("fastify-raw-body"), {
   fields: "rawBody",
   global: true
 })
-/* 
- * Registro de plugins no fastify/>
-*/
 
 app.register(require("fastify-static"), {
   root: __dirname + "/images"
 })
+/*
+ * Registro de plugins no fastify/>
+*/
 
 /*
  * <Rotas
@@ -62,7 +62,6 @@ app.post("/api/interaction", async function (req, res) {
     return res.status(401).send("invalid request signature")
   }
   if(req.body.type == 1) {
-    await discordreq()
     return res.status(200).send({
       type: 1
     })
