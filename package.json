@@ -20,7 +20,6 @@
   "dependencies": {
     "axios": "^0.21.4",
     "bluebird": "^3.7.2",
-    "canvas": "^2.8.0",
     "colors": "^1.4.0",
     "deepai": "^1.0.17",
     "dotenv": "^10.0.0",
