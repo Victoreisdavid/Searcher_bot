@@ -4,8 +4,7 @@ module.exports = class API {
     this.env = env;
 
     Object.defineProperty(this, 'env', {
-      enumerable: false,
-      writable: false
+      enumerable: false
     });
   }
 }
