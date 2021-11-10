@@ -59,7 +59,7 @@ app.post("/api/interaction", async function (req, res) {
     Buffer.from(publickey, 'hex')
   );
   if(!isVerified) {
-    return res.status(401).send("invalid request signature")
+    return res.status(401).send("Vaza daqui vacilão")
   }
   if(req.body.type == 1) {
     return res.status(200).send({
