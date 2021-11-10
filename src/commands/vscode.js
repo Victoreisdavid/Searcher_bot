@@ -37,73 +37,74 @@ module.exports = {
 
 async function search_extension_subcommand(data) {
   const query = data.data.options[0].options[0].options[0].value
-  let packages = await apis.vscode.search(query)
-  if(!packages || packages.length == 0) {
-    return {
-      type: Constants.callback_type.MESSAGE,
-      data: {
-        content: "<:warn:886469809712291850> Não achei nenhum resultado.",
-        flags: Constants.message_flags.EPHEMERAL
-      }
-    }
-  }
-  const options = []
-  const packages_names = []
-  let muchLong_text = ""
-  for(let p = 0; p < 10; p++) {
-    if(!packages[p]) break;
-    const name = packages[p].displayName || packages[p].extensionName 
-    options.push({
-      label: name.length > 30 ? name.slice(0, 30) + "..." : name,
-      value: packages[p].extensionId
-    })
-    packages_names.push(`${p} - ${name.length > 30 ? name.slice(0, 30) + "..." : name}`)
-  }
   
-  const limitText = packages.length > 100 ? "Muita coisa né? Me agradeça por processar os 10 primeiros pra facilitar sua vida :handshake:" : "Estou mostrando apenas os 10 primeiros."
-  const Token = bot.genToken(95)
-  bot.results_store.set(Token, packages)
-  const url = `https://marketplace.visualstudio.com/search?term=${encodeURIComponent(query)}&target=VSCode&category=All%20categories&sortBy=Relevance`
-  const response_data = {
-    data: {
-      embeds: [
-        {
-          author: {
-            name: "Searcher - VSCode",
-            url: "https://code.visualstudio.com"
-          },
-          url: url,
-          title: "Resultados da pesquisa",
-          description: `:mag_right: Pesquisei por \`${query}\` nas extensões do visual studio code, e achei \`${packages.length}\` resultados. ${limitText}`,
-          color: Config.bot.embeds.colors.blue,
-          fields: [
-            {
-              name: ":mag_right: Resultados",
-              value: packages_names.join("\n")
-            }
-          ],
-          footer: {
-            text: "Caso algum nome esteja cortado, é porque ele é muito grande."
-          }
-        }
-      ],
-      components: [
-        {
-          type: 1,
-          components: [
-            {
-              type: 3,
-              custom_id: Token,
-              placeholder: "selecione o resultado..",
-              options: options
-            }
-          ]
-        }
-      ]
-    }
-  }
   //Tempo que ele vai esperar pra editar a resposta (não coloque menos de 300ms, pra evitar que ele edite antes de mandar a resposta de fato.)
   setTimeout(async () => {
+    let packages = await apis.vscode.search(query)
+    if(!packages || packages.length == 0) {
+      return {
+        type: Constants.callback_type.MESSAGE,
+        data: {
+          content: "<:warn:886469809712291850> Não achei nenhum resultado.",
+          flags: Constants.message_flags.EPHEMERAL
+        }
+      }
+    }
+    const options = []
+    const packages_names = []
+    let muchLong_text = ""
+    for(let p = 0; p < 10; p++) {
+      if(!packages[p]) break;
+      const name = packages[p].displayName || packages[p].extensionName 
+      options.push({
+        label: name.length > 40 ? name.slice(0, 40) + "..." : name,
+        value: packages[p].extensionId
+      })
+      packages_names.push(`${p} - ${name.length > 40 ? name.slice(0, 40) + "..." : name}`)
+    }
+    
+    const limitText = packages.length > 100 ? "Muita coisa né? Me agradeça por processar os 10 primeiros pra facilitar sua vida :handshake:" : "Estou mostrando apenas os 10 primeiros."
+    const Token = bot.genToken(95)
+    bot.results_store.set(Token, packages)
+    const url = `https://marketplace.visualstudio.com/search?term=${encodeURIComponent(query)}&target=VSCode&category=All%20categories&sortBy=Relevance`
+    const response_data = {
+      data: {
+        embeds: [
+          {
+            author: {
+              name: "Searcher - VSCode",
+              url: "https://code.visualstudio.com"
+            },
+            url: url,
+            title: "Resultados da pesquisa",
+            description: `:mag_right: Pesquisei por \`${query}\` nas extensões do visual studio code, e achei \`${packages.length}\` resultados. ${limitText}`,
+            color: Config.bot.embeds.colors.blue,
+            fields: [
+              {
+                name: ":mag_right: Resultados",
+                value: packages_names.join("\n")
+              }
+            ],
+            footer: {
+              text: "Caso algum nome esteja cortado, é porque ele é muito grande."
+            }
+          }
+        ],
+        components: [
+          {
+            type: 1,
+            components: [
+              {
+                type: 3,
+                custom_id: Token,
+                placeholder: "selecione o resultado..",
+                options: options
+              }
+            ]
+          }
+        ]
+      }
+    }
     const edit_result = await bot.editInteraction(data.token, response_data.data)
     if(!edit_result) {
       bot.editInteraction(data.token, {
