@@ -51,7 +51,7 @@ app.post("/api/interaction", async function (req, res) {
   const timestamp = req.headers["x-signature-timestamp"]
   const body = req.rawBody
   if(!timestamp || !signature || !body) {
-    return res.sendStatus(401)
+    return res.status(401).send("Vaza daqui vacilão")
   }
   const isVerified = nacl.sign.detached.verify(
     Buffer.from(timestamp + body),
