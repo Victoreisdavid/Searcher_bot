@@ -138,6 +138,23 @@ async function handleInteraction(data) {
     }
   }
   const mod = mods.hits.find(mod => mod.title == query)
+  const sides = []
+  const translates = {
+    server: {
+      required: ":computer: Lado do servidor",
+      optional: ":computer: Lado do servidor (Opcional)"
+    },
+    client: {
+      required: ":bust_in_silhouette: Lado do jogador",
+      optional: ":bust_in_silhouette: Lado do jogador (Opcional)"
+    }
+  }
+  if(mod.server_side !== "unsupported") {
+    sides.push(translates.server[mod.server_side])
+  }
+  if(mod.client_side !== "unsupported") {
+    sides.push(translates.client[mod.client_side])
+  }
   return {
     type: Constants.callback_type.EDIT_MESSAGE,
     data: {
@@ -164,6 +181,10 @@ async function handleInteraction(data) {
             {
               name: `:open_file_folder: Versões suportadas`,
               value: mod.versions.join("\n")
+            },
+            {
+              name: ":wrench: Em qual lado pode rodar",
+              value: sides.join("\n")
             }
           ],
           thumbnail: {
