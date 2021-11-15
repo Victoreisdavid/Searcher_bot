@@ -2,7 +2,7 @@
 	Pra uma melhor organização, tudo o que for relacionado ao bot ficará dentro da pasta "src".
 */
 
-const { readFileSync, promises: { readdir }} = require("fs")
+const { readFileSync, promises: { readdir } } = require("fs")
 const { parse } = require("yaml")
 const yamlFile = readFileSync("./config.yaml", "utf8")
 const colors = require("colors")
@@ -23,11 +23,11 @@ Config.images_server = process.env.IMAGES_SERVER
 */
 const files_p = readdir("./src/commands")
 Bluebird.resolve(files_p).then(files => {
-  for(const file of files) {
-    const prop = require(`./src/commands/${file}`)
-    commands.set(prop.command.name, prop)
-  }
-  console.log(colors.yellow("Comandos carregados:", files.length))
+    for(const file of files) {
+        const prop = require(`./src/commands/${file}`)
+        commands.set(prop.command.name, prop)
+    }
+    console.log(colors.yellow("Comandos carregados:", files.length))
 })
 //-----
 

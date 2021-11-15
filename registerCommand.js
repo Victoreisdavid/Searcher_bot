@@ -10,11 +10,11 @@ global.Config = parse(yamlFile)
 
 let guildID = process.argv[2]
 let commandName;
-if (!isNaN(guildID)) {
-  commandName = process.argv[3]
+if(!isNaN(guildID)) {
+    commandName = process.argv[3]
 } else {
-  commandName = process.argv[2]
-  guildID = undefined
+    commandName = process.argv[2]
+    guildID = undefined
 }
 
 if(!commandName) return console.log(colors.red("Coloque o nome do arquivo onde está o comando"))

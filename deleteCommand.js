@@ -9,11 +9,11 @@ global.Config = parse(yamlFile)
 
 let guildID = process.argv[2]
 let commandName;
-if (!isNaN(guildID)) {
-  commandName = process.argv.splice(3).join(" ")
+if(!isNaN(guildID)) {
+    commandName = process.argv.splice(3).join(" ")
 } else {
-  commandName = process.argv.splice(2).join(" ")
-  guildID = undefined
+    commandName = process.argv.splice(2).join(" ")
+    guildID = undefined
 }
 
 require("./src/utils/registers/deleteCommand")(guildID, commandName)

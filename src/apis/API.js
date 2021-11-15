@@ -1,10 +1,10 @@
 module.exports = class API {
-  constructor(name, env = []) {
-    this.name = name;
-    this.env = env;
+    constructor(name, env = []) {
+        this.name = name;
+        this.env = env;
 
-    Object.defineProperty(this, 'env', {
-      enumerable: false
-    });
-  }
+        Object.defineProperty(this, 'env', {
+            enumerable: false
+        });
+    }
 }
