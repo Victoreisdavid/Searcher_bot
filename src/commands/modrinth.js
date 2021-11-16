@@ -141,12 +141,12 @@ async function handleInteraction(data) {
     const sides = []
     const translates = {
         server: {
-            required: ":computer: Lado do servidor",
-            optional: ":computer: Lado do servidor (Opcional)"
+            required: ":computer: Servidor",
+            optional: ":computer: Servidor (Opcional)"
         },
         client: {
-            required: ":bust_in_silhouette: Lado do jogador",
-            optional: ":bust_in_silhouette: Lado do jogador (Opcional)"
+            required: ":bust_in_silhouette: Jogador",
+            optional: ":bust_in_silhouette: Jogador (Opcional)"
         }
     }
     if(mod.server_side !== "unsupported") {
@@ -179,12 +179,14 @@ async function handleInteraction(data) {
                             inline: true
                         },
                         {
-                            name: `:open_file_folder: Versões suportadas`,
-                            value: mod.versions.join("\n")
+                            name: ":wrench: Onde o mod funciona",
+                            value: sides.join("\n"),
+                            inline: true
                         },
                         {
-                            name: ":wrench: Em qual lado pode rodar",
-                            value: sides.join("\n")
+                            name: `:open_file_folder: Versões suportadas`,
+                            value: mod.versions.reverse().join("\n"),
+                            inline: true
                         }
                     ],
                     thumbnail: {
