@@ -38,4 +38,3 @@ console.log(colors.yellow("Iniciando todos os módulos."))
 require("dotenv").config()
 require("./src/client")
 require("./src/index");
-require("./src/utils/ramStatus")
