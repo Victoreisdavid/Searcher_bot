@@ -24,7 +24,7 @@ module.exports = {
                             },
                             {
                                 name: "<:ebaa:886554070075203625> Informações minhas",
-                                value: `**Servidores:** \`${bot.guilds.size}\`\n**Comandos (sem contar subcomandos):** \`${commands.size}\`\n**Tempo ligado:** \`${ms(process.uptime() * 1000)}\``
+                                value: `**Comandos (sem contar subcomandos):** \`${commands.size}\`\n**Tempo ligado:** \`${ms(process.uptime() * 1000)}\``
                             },
                             {
                                 name: "<:desktop:886471189017534494> Informações do sistema",

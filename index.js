@@ -36,5 +36,5 @@ Bluebird.resolve(files_p).then(files => {
 */
 console.log(colors.yellow("Iniciando todos os módulos."))
 require("dotenv").config()
-require("./src/client")
+require("./src/client").init(false) // <-- defina isso para true se você quer que seja feita uma conexão com a gateway do discord.
 require("./src/index");
