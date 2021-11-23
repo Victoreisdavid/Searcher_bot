@@ -104,12 +104,7 @@ async function search_extension_subcommand(data) {
                 ]
             }
         }
-        const edit_result = await bot.editInteraction(data.token, response_data.data)
-        if(!edit_result) {
-            bot.editInteraction(data.token, {
-                content: "<:warn:886469809712291850> Não foi possível exibir os resultados."
-            })
-        }
+        await bot.editInteraction(data.token, response_data.data)
     }, 500)
     //-----------
     return {
