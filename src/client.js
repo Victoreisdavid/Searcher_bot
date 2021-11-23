@@ -1,20 +1,39 @@
 const eris = require("eris-additions")(require("eris"))
 const { patch } = require("axios")
 const mongoose = require("mongoose")
-const cache = require("abstract-cache-mongo")({
-    dbName: "results-store",
-    segment: "results",
-    mongodb: {
-        url: process.env.DB_URL,
-        connectOptions: {
-            useUnifiedTopology: true
-        }
-    }
-})
+let cache;
 let CONNECTED = false
 let ID;
 
-cache.start()
+const valid_providers = ["redis", "mongodb", "mongodb+srv"]
+const PROVIDER = process.env.CACHE_PROVIDER_URL
+const PROVIDER_NAME = PROVIDER.split(":")[0]
+if(!valid_providers.includes(PROVIDER_NAME)) {
+    throw new Error(`Provedor de cache inválido \"${PROVIDER_NAME}\". Atualmente o searcher suporta mongoDB e Redis para caching.`)
+}
+
+if(valid_providers.includes("mongodb")) {
+    console.log(colors.yellow("Mongodb detectado como provedor de cache."))
+    cache = require("abstract-cache-mongo")({
+        dbName: "results-store",
+        segment: "results",
+        mongodb: {
+            url: process.env.DB_URL,
+            connectOptions: {
+                useUnifiedTopology: true
+            }
+        }
+    })
+    cache.start()
+} else if(valid_providers.includes("redis")) {
+    console.log(colors.yellow("Redis detectado como provedor de cache."))
+    cache = require("abstract-cache-redis")({
+        useAwait: true,
+        ioredis: {
+            host: PROVIDER
+        }
+    })
+}
 
 /**
  * Função que cria o objeto do bot
