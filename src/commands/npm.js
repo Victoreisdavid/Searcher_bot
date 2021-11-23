@@ -68,7 +68,7 @@ async function search_subcommand(data) {
     const mappedlibs = libs.map((lib, i) => i + " - " + lib.package.name)
     const options = []
     const Token = bot.genToken(95)
-    bot.results_store.set(Token, libs)
+    bot.results_store.set(Token, libs, 300000)
     libs.forEach(lib => {
         options.push(
             {
@@ -201,8 +201,8 @@ async function handleInteraction(data) {
             }
         }
     }
-    let lib = bot.results_store.get(data.data.custom_id)
-    if(!lib) {
+    let has = await bot.results_store.has(data.data.custom_id)
+    if(!has) {
         return {
             type: Constants.callback_type.MESSAGE,
             data: {
@@ -211,7 +211,8 @@ async function handleInteraction(data) {
             }
         }
     }
-    lib = lib.find(l => l.package.name == data.data.values[0]).package
+    let lib = await bot.results_store.get(data.data.custom_id)
+    lib = lib.item.find(l => l.package.name == data.data.values[0]).package
     const links = lib.links
     const fields = []
     fields.push(

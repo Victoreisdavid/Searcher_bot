@@ -63,7 +63,7 @@ async function search_mod_subcommand(data) {
         }
     }
     const Token = bot.genToken(95)
-    bot.results_store.set(Token, search)
+    bot.results_store.set(Token, search, 300000)
     const options = []
     const results = search.hits.map((mod, i) => {
         options.push({
@@ -127,8 +127,8 @@ async function handleInteraction(data) {
         }
     }
     const query = data.data.values[0]
-    const mods = bot.results_store.get(data.data.custom_id)
-    if(!mods) {
+    const has = await bot.results_store.has(data.data.custom_id)
+    if(!has) {
         return {
             type: Constants.callback_type.MESSAGE,
             data: {
@@ -137,7 +137,8 @@ async function handleInteraction(data) {
             }
         }
     }
-    const mod = mods.hits.find(mod => mod.title == query)
+    const mods = await bot.results_store.get(data.data.custom_id)
+    const mod = mods.item.hits.find(mod => mod.title == query)
     const sides = []
     const translates = {
         server: {

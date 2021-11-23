@@ -62,10 +62,9 @@ async function search_extension_subcommand(data) {
             })
             packages_names.push(`${p} - ${name.length > 40 ? name.slice(0, 40) + "..." : name}`)
         }
-
         const limitText = packages.length > 100 ? "Muita coisa né? Me agradeça por processar os 10 primeiros pra facilitar sua vida :handshake:" : "Estou mostrando apenas os 10 primeiros."
         const Token = bot.genToken(95)
-        bot.results_store.set(Token, packages)
+        bot.results_store.set(Token, packages, 300000)
         const url = `https://marketplace.visualstudio.com/search?term=${encodeURIComponent(query)}&target=VSCode&category=All%20categories&sortBy=Relevance`
         const response_data = {
             data: {
@@ -130,8 +129,8 @@ async function handleInteraction(data) {
         }
     }
     const query = data.data.values[0]
-    const extensions = bot.results_store.get(data.data.custom_id)
-    if(!extensions) {
+    const has = await bot.results_store.has(data.data.custom_id)
+    if(!has) {
         return {
             type: Constants.callback_type.MESSAGE,
             data: {
@@ -140,7 +139,8 @@ async function handleInteraction(data) {
             }
         }
     }
-    const extension = extensions.find(pkg => pkg.extensionId == query)
+    const extensions = await bot.results_store.get(data.data.custom_id)
+    const extension = extensions.item.find(pkg => pkg.extensionId == query)
     const name = extension.displayName || extension.extensionName
     const author_name = extension.publisher.displayName || extension.publisher.extensionName
     const url = `https://marketplace.visualstudio.com/items?itemName=${name.replace(/ /g, ".")}`

@@ -1,7 +1,20 @@
 const eris = require("eris-additions")(require("eris"))
 const { patch } = require("axios")
 const mongoose = require("mongoose")
+const cache = require("abstract-cache-mongo")({
+    dbName: "results-store",
+    segment: "results",
+    mongodb: {
+        url: process.env.DB_URL,
+        connectOptions: {
+            useUnifiedTopology: true
+        }
+    }
+})
 let CONNECTED = false
+let ID;
+
+cache.start()
 
 /**
  * Função que cria o objeto do bot
@@ -33,7 +46,8 @@ function init(connect) {
                 PRESENCE_UPDATE: true
             },
             messageLimit: 25
-        })
+        }) 
+        ID = bot.user.id
 
         /* 
         * Eventos
@@ -62,9 +76,10 @@ function init(connect) {
         bot.connect = function() {
             return null
         }
+        ID = Config.bot.id
         connect_db()
     }
-    bot.results_store = new Map()
+    bot.results_store = cache
     bot.genToken = genToken
     bot.editInteraction = editInteraction
 
@@ -99,12 +114,13 @@ function genToken(length) {
  * @returns {Boolean} Retorna true se conseguir editar, false se um erro acontecer.
 */
 async function editInteraction(token, data) {
-    try {
-        const r_data = await patch(`https://discord.com/api/v9/webhooks/${bot.user.id}/${token}/messages/@original`, data)
+    await patch(`https://discord.com/api/v9/webhooks/${ID}/${token}/messages/@original`, data)
+    .then(d => {
         return true
-    } catch (e) {
+    })
+    .catch(() => {
         return false
-    }
+    })
 }
 
 async function connect_db() {

@@ -67,7 +67,7 @@ async function search_subcommand(data) {
         })
     })
     const Token = bot.genToken(95)
-    bot.results_store.set(Token, packages)
+    bot.results_store.set(Token, packages, 300000)
     const url = `https://community.chocolatey.org/packages?q=${encodeURIComponent(query)}`
     return {
         type: Constants.callback_type.MESSAGE,
@@ -154,8 +154,8 @@ async function handleInteraction(data) {
         }
     }
     const query = data.data.values[0]
-    const packages = bot.results_store.get(data.data.custom_id)
-    if(!packages) {
+    const has = await bot.results_store.has(data.data.custom_id)
+    if(!has) {
         return {
             type: Constants.callback_type.MESSAGE,
             data: {
@@ -164,7 +164,8 @@ async function handleInteraction(data) {
             }
         }
     }
-    const package = packages.find(pkg => pkg.Id == query)
+    const packages = await bot.results_store.get(data.data.custom_id)
+    const package = packages.item.find(pkg => pkg.Id == query)
     const published = new Date(getNumbers(package.Published))
     const created = new Date(getNumbers(package.Created))
     const published_date = DateTime.fromJSDate(published, { setZone: true, setLocale: true })
