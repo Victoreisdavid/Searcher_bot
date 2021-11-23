@@ -12,7 +12,7 @@ if(!valid_providers.includes(PROVIDER_NAME)) {
     throw new Error(`Provedor de cache inválido \"${PROVIDER_NAME}\". Atualmente o searcher suporta mongoDB e Redis para caching.`)
 }
 
-if(valid_providers.includes("mongodb")) {
+if(PROVIDER_NAME == "mongodb" || PROVIDER_NAME == "mongodb+srv" ) {
     console.log(colors.yellow("Mongodb detectado como provedor de cache."))
     cache = require("abstract-cache-mongo")({
         dbName: "results-store",
@@ -25,7 +25,7 @@ if(valid_providers.includes("mongodb")) {
         }
     })
     cache.start()
-} else if(valid_providers.includes("redis")) {
+} else if(PROVIDER_NAME == "redis") {
     console.log(colors.yellow("Redis detectado como provedor de cache."))
     cache = require("abstract-cache-redis")({
         useAwait: true,
