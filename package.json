@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Victoreisdavid/Searcher_bot#readme",
   "dependencies": {
     "abstract-cache-mongo": "^2.0.2",
+    "abstract-cache-redis": "^2.0.0",
     "axios": "^0.21.4",
     "bluebird": "^3.7.2",
     "colors": "^1.4.0",
